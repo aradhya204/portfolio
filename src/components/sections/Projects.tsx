@@ -25,7 +25,18 @@ const projects = [
       { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> },
       { name: "GitHub", url: "#", icon: <FaGithub /> },
       { name: "Case Study", url: "#", icon: <FaFileAlt /> }
-    ]
+    ],
+    architecture: {
+      nodes: [
+        { id: "client", x: 50, y: 40, label: "Client" },
+        { id: "backend", x: 250, y: 40, label: "FinSphere Backend" },
+        { id: "db", x: 450, y: 40, label: "PostgreSQL" }
+      ],
+      edges: [
+        { from: "client", to: "backend" },
+        { from: "backend", to: "db" }
+      ]
+    }
   },
   {
     title: "Distributed Rate Limiter & API Gateway",
@@ -43,7 +54,30 @@ const projects = [
     links: [
       { name: "GitHub", url: "#", icon: <FaGithub /> },
       { name: "Architecture", url: "#", icon: <FaFileAlt /> }
-    ]
+    ],
+    architecture: {
+      nodes: [
+        { id: "client", x: 30, y: 30, label: "Client Request" },
+        { id: "gateway", x: 200, y: 30, label: "API Gateway (Middleware)" },
+        { id: "token", x: 380, y: 30, label: "Token Bucket" },
+        { id: "sliding", x: 380, y: 120, label: "Sliding Window Log" },
+        { id: "fixed", x: 380, y: 210, label: "Fixed Window Counter" },
+        { id: "redis", x: 560, y: 120, label: "Redis" },
+        { id: "allowed", x: 750, y: 30, label: "Allowed" },
+        { id: "blocked", x: 750, y: 120, label: "Blocked" }
+      ],
+      edges: [
+        { from: "client", to: "gateway" },
+        { from: "gateway", to: "token" },
+        { from: "gateway", to: "sliding" },
+        { from: "gateway", to: "fixed" },
+        { from: "token", to: "redis" },
+        { from: "sliding", to: "redis" },
+        { from: "fixed", to: "redis" },
+        { from: "gateway", to: "allowed" },
+        { from: "gateway", to: "blocked" }
+      ]
+    }
   },
   {
     title: "CodeSentry",
@@ -64,7 +98,20 @@ const projects = [
       { name: "GitHub", url: "#", icon: <FaGithub /> },
       { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> },
       { name: "Case Study", url: "#", icon: <FaFileAlt /> }
-    ]
+    ],
+    architecture: {
+      nodes: [
+        { id: "client", x: 50, y: 40, label: "User Interface" },
+        { id: "api", x: 250, y: 40, label: "FastAPI Backend" },
+        { id: "ml", x: 450, y: 40, label: "ML Model" },
+        { id: "db", x: 650, y: 40, label: "PostgreSQL" }
+      ],
+      edges: [
+        { from: "client", to: "api" },
+        { from: "api", to: "ml" },
+        { from: "api", to: "db" }
+      ]
+    }
   }
 ];
 
@@ -103,7 +150,7 @@ export const Projects = () => {
                 <div className="flex flex-col gap-4 mt-auto relative z-10">
                   <div className="flex flex-wrap gap-4">
                     {project.links
-                      .filter(link => link.name !== "Live Demo" || project.hasLiveDemo)
+                      .filter(link => link.name === "Live Demo" && project.hasLiveDemo)
                       .map((link, i) => (
                         <a 
                           key={i} 
@@ -117,29 +164,27 @@ export const Projects = () => {
                       ))}
                   </div>
                   
-                  {project.title.includes('Rate Limiter') && (
-                    <div className="flex flex-col">
-                      <button
-                        onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-                        className="flex items-center gap-2 text-sm font-medium text-primary hover:text-white transition w-fit"
-                      >
-                        {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
-                        {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
-                      </button>
-                      
-                      {expandedProject === project.title && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4 }}
-                          className="mt-4 overflow-hidden rounded-xl bg-black/20 p-2"
-                        >
-                          <ArchitectureDiagram />
-                        </motion.div>
-                      )}
-                    </div>
-                  )}
+                  <div className="flex flex-col">
+                          <button
+                            onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+                            className="flex items-center gap-2 text-sm font-medium text-primary hover:text-white transition w-fit"
+                          >
+                            {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
+                            {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
+                          </button>
+                          
+                          {expandedProject === project.title && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.4 }}
+                              className="mt-4 overflow-hidden rounded-xl bg-black/20 p-2"
+                            >
+                              <ArchitectureDiagram nodes={project.architecture.nodes} edges={project.architecture.edges} />
+                            </motion.div>
+                          )}
+                        </div>
                 </div>
               </div>
 
