@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '../ui/SectionHeading';
 import { FaGithub, FaExternalLinkAlt, FaFileAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { SiReact, SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiJsonwebtokens, SiDocker, SiRedis, SiNextdotjs, SiTypescript, SiPython, SiFastapi, SiScikitlearn } from 'react-icons/si';
-import { ArchitectureDiagram } from '../ArchitectureDiagram';
+import { ArchitectureDiagram } from '../../components/ArchitectureDiagram';
 
 const projects = [
   {
