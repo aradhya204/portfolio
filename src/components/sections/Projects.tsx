@@ -107,6 +107,8 @@ export const Projects = () => {
                       <a 
                         key={i} 
                         href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
                       >
                         {link.icon} {link.name}
