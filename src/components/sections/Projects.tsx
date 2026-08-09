@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../ui/SectionHeading';
-import { FaGithub, FaExternalLinkAlt, FaFileAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaFileAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { SiReact, SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiJsonwebtokens, SiDocker, SiRedis, SiNextdotjs, SiTypescript, SiPython, SiFastapi, SiScikitlearn } from 'react-icons/si';
+import { ArchitectureDiagram } from '../../components/ArchitectureDiagram';
 
 const projects = [
   {
@@ -63,6 +64,7 @@ const projects = [
 ];
 
 export const Projects = () => {
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
   return (
     <section id="projects" className="py-24 bg-cards/30 relative">
       <div className="container mx-auto px-6">
@@ -103,6 +105,27 @@ export const Projects = () => {
                       {link.icon} {link.name}
                     </a>
                   ))}
+                  {/* Architecture Explorer for Rate Limiter project */}
+                  {project.title.includes('Rate Limiter') && (
+                    <button
+                      onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+                      className="flex items-center gap-2 mt-2 text-sm font-medium text-gray-300 hover:text-white transition"
+                    >
+                      {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
+                      {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
+                    </button>
+                  )}
+                  {expandedProject === project.title && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="mt-4 overflow-hidden"
+                    >
+                      <ArchitectureDiagram />
+                    </motion.div>
+                  )}
                 </div>
               </div>
 
