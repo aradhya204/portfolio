@@ -28,13 +28,32 @@ const projects = [
     ],
     architecture: {
       nodes: [
-        { id: "client", x: 50, y: 40, label: "Client" },
-        { id: "backend", x: 250, y: 40, label: "FinSphere Backend" },
-        { id: "db", x: 450, y: 40, label: "PostgreSQL" }
+        { id: "client", x: 50, y: 40, label: "Client (React UI)", tooltip: "React front‑end UI" },
+        { id: "gateway", x: 250, y: 40, label: "Express API Gateway", tooltip: "Entry point for client requests" },
+        { id: "auth", x: 250, y: 120, label: "Auth Middleware (JWT + Refresh Tokens)", tooltip: "Handles authentication and token refresh" },
+        { id: "rbac", x: 250, y: 200, label: "RBAC Layer (Role‑Based Access)", tooltip: "Enforces role‑based permissions" },
+        { id: "income", x: 450, y: 150, label: "Income Controller", tooltip: "Manages income data" },
+        { id: "expense", x: 450, y: 200, label: "Expense Controller", tooltip: "Manages expense data" },
+        { id: "budget", x: 450, y: 250, label: "Budget Controller", tooltip: "Handles budgeting logic" },
+        { id: "analytics", x: 450, y: 300, label: "Analytics Controller", tooltip: "Generates analytics" },
+        { id: "db", x: 650, y: 200, label: "PostgreSQL (via Prisma ORM)", tooltip: "Relational storage for all data" },
+        { id: "audit", x: 850, y: 180, label: "Audit Log", tooltip: "Records every sensitive action" },
+        { id: "report", x: 850, y: 320, label: "PDF/Excel Report Generator", tooltip: "Creates downloadable reports" }
       ],
       edges: [
-        { from: "client", to: "backend" },
-        { from: "backend", to: "db" }
+        { from: "client", to: "gateway" },
+        { from: "gateway", to: "auth" },
+        { from: "auth", to: "rbac" },
+        { from: "rbac", to: "income" },
+        { from: "rbac", to: "expense" },
+        { from: "rbac", to: "budget" },
+        { from: "rbac", to: "analytics" },
+        { from: "income", to: "db" },
+        { from: "expense", to: "db" },
+        { from: "budget", to: "db" },
+        { from: "analytics", to: "db" },
+        { from: "db", to: "audit" },
+        { from: "analytics", to: "report" }
       ]
     }
   },
