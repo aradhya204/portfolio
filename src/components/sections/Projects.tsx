@@ -101,15 +101,19 @@ const projects = [
     ],
     architecture: {
       nodes: [
-        { id: "client", x: 50, y: 40, label: "User Interface" },
-        { id: "api", x: 250, y: 40, label: "FastAPI Backend" },
-        { id: "ml", x: 450, y: 40, label: "ML Model" },
-        { id: "db", x: 650, y: 40, label: "PostgreSQL" }
+        { id: "user", x: 50, y: 100, label: "User" },
+        { id: "next", x: 200, y: 100, label: "Next.js Frontend" },
+        { id: "fastapi", x: 400, y: 100, label: "FastAPI Engine" },
+        { id: "ocr", x: 550, y: 50, label: "OCR Microservice" },
+        { id: "ml", x: 550, y: 150, label: "Scikit-Learn Model" },
+        { id: "db", x: 400, y: 250, label: "PostgreSQL" }
       ],
       edges: [
-        { from: "client", to: "api" },
-        { from: "api", to: "ml" },
-        { from: "api", to: "db" }
+        { from: "user", to: "next" },
+        { from: "next", to: "fastapi" },
+        { from: "fastapi", to: "ocr" },
+        { from: "fastapi", to: "ml" },
+        { from: "fastapi", to: "db" }
       ]
     }
   }
