@@ -53,9 +53,9 @@ export const ArchitectureDiagram = ({ nodes, edges }: { nodes: any[]; edges: { f
         >
           <title>{node.tooltip}</title>
           <rect
-            x={node.x - 60}
+            x={node.x - 80}
             y={node.y - 20}
-            width={120}
+            width={160}
             height={40}
             fill="#111827"
             stroke="#3B82F6"
