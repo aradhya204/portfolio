@@ -12,17 +12,17 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formRef.current) return;
-    
+
     setIsSubmitting(true);
     setError(null);
-    
+
     const formData = new FormData(formRef.current);
     const object = Object.fromEntries(formData);
     const json = JSON.stringify({
       ...object,
       access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
     });
-    
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -53,10 +53,10 @@ export const Contact = () => {
     <section id="contact" className="py-24 relative">
       {/* Decorative blobs */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 relative z-10">
-        <SectionHeading 
-          title="Get In Touch" 
+        <SectionHeading
+          title="Get In Touch"
           subtitle="Have a question or want to work together? Leave a message!"
         />
 
@@ -65,8 +65,8 @@ export const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="text-sm font-medium text-gray-300">Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="name"
                   name="name"
                   required
@@ -76,8 +76,8 @@ export const Contact = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-300">Email</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   id="email"
                   name="email"
                   required
@@ -86,11 +86,11 @@ export const Contact = () => {
                 />
               </div>
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <label htmlFor="subject" className="text-sm font-medium text-gray-300">Subject</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 id="subject"
                 name="subject"
                 required
@@ -98,10 +98,10 @@ export const Contact = () => {
                 className="bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
               />
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <label htmlFor="message" className="text-sm font-medium text-gray-300">Message</label>
-              <textarea 
+              <textarea
                 id="message"
                 name="message"
                 required
@@ -122,9 +122,8 @@ export const Contact = () => {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting}
-              className={`mt-4 w-full text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-70 disabled:cursor-not-allowed ${
-                error ? 'bg-red-500 hover:bg-red-600' : 'bg-primary hover:bg-blue-600'
-              }`}
+              className={`mt-4 w-full text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-70 disabled:cursor-not-allowed ${error ? 'bg-red-500 hover:bg-red-600' : 'bg-primary hover:bg-blue-600'
+                }`}
             >
               {isSubmitting ? (
                 <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
