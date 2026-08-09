@@ -49,36 +49,36 @@ export const ArchitectureDiagram = () => {
 
       {/* Nodes */}
       {nodes.map((node) => (
-          <motion.g
-            key={node.id}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            cursor="pointer"
-          >
-            <title>{node.tooltip}</title>
-            <rect
-              x={node.x - 60}
-              y={node.y - 20}
-              width={120}
-              height={40}
-              fill="#1F2937"
-              fillOpacity={0.9}
-              stroke="#8B5CF6"
-              strokeWidth={2}
-              rx={6}
-            />
-            <text
-              x={node.x}
-              y={node.y + 5}
-              textAnchor="middle"
-              fill="#F8FAFC"
-              fontSize="13"
-              fontFamily="system-ui, sans-serif"
+            <g
+              key={node.id}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
             >
-              {node.label}
-            </text>
-          </motion.g>
-        ))}
+              <title>{node.tooltip}</title>
+              <rect
+                x={node.x - 60}
+                y={node.y - 20}
+                width={120}
+                height={40}
+                fill="#1F2937"
+                fillOpacity={0.9}
+                stroke="#8B5CF6"
+                strokeWidth={2}
+                rx={6}
+              />
+              <text
+                x={node.x}
+                y={node.y + 5}
+                textAnchor="middle"
+                fill="#F8FAFC"
+                fontSize="13"
+                fontFamily="system-ui, sans-serif"
+              >
+                {node.label}
+              </text>
+            </g>
+          ))}
     </svg>
   );
 };
