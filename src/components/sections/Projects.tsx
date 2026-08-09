@@ -120,19 +120,26 @@ const projects = [
     ],
     architecture: {
       nodes: [
-        { id: "user", x: 50, y: 100, label: "User" },
-        { id: "next", x: 200, y: 100, label: "Next.js Frontend" },
-        { id: "fastapi", x: 400, y: 100, label: "FastAPI Engine" },
-        { id: "ocr", x: 550, y: 50, label: "OCR Microservice" },
-        { id: "ml", x: 550, y: 150, label: "Scikit-Learn Model" },
-        { id: "db", x: 400, y: 250, label: "PostgreSQL" }
+        { id: "client", x: 50, y: 40, label: "Client (Next.js Frontend)", tooltip: "Next.js UI for developers" },
+        { id: "api", x: 250, y: 40, label: "Node.js/Express API", tooltip: "Main backend API" },
+        { id: "auth", x: 250, y: 120, label: "JWT + RBAC Auth (Developer/Admin roles)", tooltip: "Authentication & role checks" },
+        { id: "mlsvc", x: 450, y: 80, label: "Python/FastAPI ML Microservice", tooltip: "ML service for bug prediction" },
+        { id: "model", x: 650, y: 80, label: "Scikit‑learn Model (~80% accuracy)", tooltip: "Trained bug prediction model" },
+        { id: "mlresult", x: 850, y: 80, label: "Bug Prediction Result", tooltip: "Prediction output" },
+        { id: "ocrsvc", x: 450, y: 200, label: "OCR Code Extraction Service", tooltip: "Extracts code via OCR" },
+        { id: "parser", x: 650, y: 200, label: "Code Submission Parser", tooltip: "Parses extracted code" },
+        { id: "db", x: 850, y: 150, label: "PostgreSQL (via Prisma ORM)", tooltip: "Stores results and metadata" }
       ],
       edges: [
-        { from: "user", to: "next" },
-        { from: "next", to: "fastapi" },
-        { from: "fastapi", to: "ocr" },
-        { from: "fastapi", to: "ml" },
-        { from: "fastapi", to: "db" }
+        { from: "client", to: "api" },
+        { from: "api", to: "auth" },
+        { from: "auth", to: "mlsvc" },
+        { from: "mlsvc", to: "model" },
+        { from: "model", to: "mlresult" },
+        { from: "auth", to: "ocrsvc" },
+        { from: "ocrsvc", to: "parser" },
+        { from: "mlresult", to: "db" },
+        { from: "parser", to: "db" }
       ]
     }
   }
