@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Tooltip } from './Tooltip';
+// Tooltip component removed; using SVG <title> for hover info
 
 // Simple SVG diagram for the Distributed Rate Limiter & API Gateway architecture
 // Nodes are wrapped with Tooltip for hover/click explanations
@@ -49,23 +49,24 @@ export const ArchitectureDiagram = () => {
 
       {/* Nodes */}
       {nodes.map((node) => (
-        <Tooltip key={node.id} text={node.tooltip}>
           <motion.g
+            key={node.id}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             cursor="pointer"
           >
+            <title>{node.tooltip}</title>
             <rect
-                x={node.x - 60}
-                y={node.y - 20}
-                width={120}
-                height={40}
-                fill="#1F2937"
-                fillOpacity={0.9}
-                stroke="#8B5CF6"
-                strokeWidth={2}
-                rx={6}
-              />
+              x={node.x - 60}
+              y={node.y - 20}
+              width={120}
+              height={40}
+              fill="#1F2937"
+              fillOpacity={0.9}
+              stroke="#8B5CF6"
+              strokeWidth={2}
+              rx={6}
+            />
             <text
               x={node.x}
               y={node.y + 5}
@@ -77,8 +78,7 @@ export const ArchitectureDiagram = () => {
               {node.label}
             </text>
           </motion.g>
-        </Tooltip>
-      ))}
+        ))}
     </svg>
   );
 };
