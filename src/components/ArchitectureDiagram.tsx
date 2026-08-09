@@ -61,9 +61,9 @@ export const ArchitectureDiagram = () => {
                 y={node.y - 20}
                 width={120}
                 height={40}
-                fill="#111827"
-                fillOpacity={1}
-                stroke="#3B82F6"
+                fill="#1F2937"
+                fillOpacity={0.9}
+                stroke="#8B5CF6"
                 strokeWidth={2}
                 rx={6}
               />
