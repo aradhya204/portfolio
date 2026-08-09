@@ -100,40 +100,45 @@ export const Projects = () => {
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-4 mt-auto relative z-10">
-                  {project.links
-                    .filter(link => link.name !== "Live Demo" || project.hasLiveDemo)
-                    .map((link, i) => (
-                      <a 
-                        key={i} 
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
-                      >
-                        {link.icon} {link.name}
-                      </a>
-                    ))}
-                  {/* Architecture Explorer for Rate Limiter project */}
+                <div className="flex flex-col gap-4 mt-auto relative z-10">
+                  <div className="flex flex-wrap gap-4">
+                    {project.links
+                      .filter(link => link.name !== "Live Demo" || project.hasLiveDemo)
+                      .map((link, i) => (
+                        <a 
+                          key={i} 
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
+                        >
+                          {link.icon} {link.name}
+                        </a>
+                      ))}
+                  </div>
+                  
                   {project.title.includes('Rate Limiter') && (
-                    <button
-                      onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-                      className="flex items-center gap-2 mt-2 text-sm font-medium text-gray-300 hover:text-white transition"
-                    >
-                      {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
-                      {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
-                    </button>
-                  )}
-                  {expandedProject === project.title && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="mt-4 overflow-hidden"
-                    >
-                      <ArchitectureDiagram />
-                    </motion.div>
+                    <div className="flex flex-col">
+                      <button
+                        onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+                        className="flex items-center gap-2 text-sm font-medium text-primary hover:text-white transition w-fit"
+                      >
+                        {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
+                        {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
+                      </button>
+                      
+                      {expandedProject === project.title && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4 }}
+                          className="mt-4 overflow-hidden rounded-xl bg-black/20 p-2"
+                        >
+                          <ArchitectureDiagram />
+                        </motion.div>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
