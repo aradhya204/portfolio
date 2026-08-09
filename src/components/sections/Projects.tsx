@@ -10,6 +10,7 @@ const projects = [
     title: "FinSphere",
     subtitle: "AI-Powered Personal Finance Platform",
     description: "A multi-tenant finance platform for multi-member families with secure auth, role-based access control, and full audit logging.",
+    hasLiveDemo: false,
     features: ["Family Expense Management", "Secure Authentication", "Role Based Access Control", "Analytics Dashboard", "Income & Expense Tracking", "PDF & Excel Reports"],
     tech: [
       { name: "React", icon: <SiReact /> },
@@ -30,6 +31,7 @@ const projects = [
     title: "Distributed Rate Limiter & API Gateway",
     subtitle: "High-Performance Middleware",
     description: "Middleware-based API gateway implementing multiple rate-limiting algorithms with Redis-backed atomic counters.",
+    hasLiveDemo: true,
     features: ["Token Bucket", "Sliding Window", "Fixed Window Counter", "Redis Atomic Counters", "Per User Rate Limits", "Docker Deployment"],
     tech: [
       { name: "Node.js", icon: <SiNodedotjs /> },
@@ -47,6 +49,7 @@ const projects = [
     title: "CodeSentry",
     subtitle: "AI Code Review & Bug Prediction",
     description: "Full-stack monorepo platform with a self-trained ML model for bug prediction and OCR-based code extraction.",
+    hasLiveDemo: true,
     features: ["AI Code Review", "ML Bug Prediction", "OCR Code Extraction", "JWT Authentication", "FastAPI Integration"],
     tech: [
       { name: "Next.js", icon: <SiNextdotjs /> },
@@ -59,7 +62,8 @@ const projects = [
     ],
     links: [
       { name: "GitHub", url: "#", icon: <FaGithub /> },
-      { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> }
+      { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> },
+      { name: "Case Study", url: "#", icon: <FaFileAlt /> }
     ]
   }
 ];
@@ -97,15 +101,17 @@ export const Projects = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-4 mt-auto relative z-10">
-                  {project.links.map((link, i) => (
-                    <a 
-                      key={i} 
-                      href={link.url}
-                      className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
-                    >
-                      {link.icon} {link.name}
-                    </a>
-                  ))}
+                  {project.links
+                    .filter(link => link.name !== "Live Demo" || project.hasLiveDemo)
+                    .map((link, i) => (
+                      <a 
+                        key={i} 
+                        href={link.url}
+                        className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
+                      >
+                        {link.icon} {link.name}
+                      </a>
+                    ))}
                   {/* Architecture Explorer for Rate Limiter project */}
                   {project.title.includes('Rate Limiter') && (
                     <button
