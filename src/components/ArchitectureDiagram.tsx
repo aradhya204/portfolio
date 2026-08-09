@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Tooltip } from '../Tooltip';
+import { Tooltip } from './Tooltip';
 
 // Simple SVG diagram for the Distributed Rate Limiter & API Gateway architecture
 // Nodes are wrapped with Tooltip for hover/click explanations
