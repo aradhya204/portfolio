@@ -56,15 +56,16 @@ export const ArchitectureDiagram = () => {
             cursor="pointer"
           >
             <rect
-              x={node.x - 60}
-              y={node.y - 20}
-              width={120}
-              height={40}
-              fill="#111827"
-              stroke="#3B82F6"
-              strokeWidth={2}
-              rx={6}
-            />
+                x={node.x - 60}
+                y={node.y - 20}
+                width={120}
+                height={40}
+                fill="#1F2937"
+                fillOpacity={0.9}
+                stroke="#8B5CF6"
+                strokeWidth={2}
+                rx={6}
+              />
             <text
               x={node.x}
               y={node.y + 5}
