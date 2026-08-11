@@ -54,13 +54,33 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
         const px = i % width;
         const py = Math.floor(i / width);
         const idx = (py * width + px) * 4;
-        if (imgData[idx + 3] < 50) continue;
+        
+        const r = imgData[idx];
+        const g = imgData[idx + 1];
+        const b = imgData[idx + 2];
+        const a = imgData[idx + 3];
+        
+        if (a < 50) continue;
+
+        const brightness = (r + g + b) / 3;
+        // Skip very dark pixels to blend with the black background
+        if (brightness < 20) continue;
+
+        // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
+        const ratio = px / width;
+        const colorR = Math.round(59 + (139 - 59) * ratio); // 139 is hex 8B
+        const colorG = Math.round(130 + (92 - 130) * ratio); // 92 is hex 5C
+        const colorB = Math.round(246 + (246 - 246) * ratio); // 246 is hex F6
+
+        // Opacity based on brightness to retain the portrait's shading/depth
+        const alpha = (brightness / 255) * 0.8 + 0.2; 
+
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           homeX: px,
           homeY: py,
-          color: `rgb(${imgData[idx]},${imgData[idx + 1]},${imgData[idx + 2]})`,
+          color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
         });
       }
 
