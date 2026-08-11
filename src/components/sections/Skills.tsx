@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const skillCategories = [
   {
@@ -24,6 +24,27 @@ const skillCategories = [
 ];
 
 export const Skills = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.5 }
+    },
+  };
+
   return (
     <section id="skills" className="py-32 bg-[#030712] border-t border-white/5 relative">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
@@ -40,14 +61,17 @@ export const Skills = () => {
           </h2>
         </motion.div>
 
-        <div className="max-w-5xl">
+        <motion.div 
+          className="max-w-5xl"
+          variants={shouldReduceMotion ? {} : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {skillCategories.map((category, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              variants={shouldReduceMotion ? {} : itemVariants}
               className="flex flex-col md:flex-row md:items-baseline py-8 border-b border-white/10 last:border-none"
             >
               <div className="w-full md:w-1/3 mb-4 md:mb-0">
@@ -60,7 +84,7 @@ export const Skills = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
