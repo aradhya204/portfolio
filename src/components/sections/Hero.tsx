@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -24,16 +24,18 @@ export const Hero = () => {
     },
   };
 
-  const imageVariants = {
+  const imageVariants = shouldReduceMotion ? fallbackImageVariants : {
     hidden: { 
-      opacity: 0, 
+      opacity: 0,
       clipPath: "inset(100% 0% 0% 0%)",
-      scale: 1.05
+      scale: 1.05,
+      filter: "blur(8px)",
     },
     visible: { 
-      opacity: 1, 
+      opacity: 1,
       clipPath: "inset(0% 0% 0% 0%)",
       scale: 1,
+      filter: "blur(0px)",
       transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }
     },
   };
@@ -43,7 +45,8 @@ export const Hero = () => {
     visible: { opacity: 1, transition: { duration: 1, delay: 0.6 } }
   };
 
-  const currentImageVariants = shouldReduceMotion ? fallbackImageVariants : imageVariants;
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
     <section id="home" className="min-h-screen flex flex-col justify-center relative px-6 md:px-12 lg:px-24">
@@ -94,8 +97,11 @@ export const Hero = () => {
         <motion.div
           initial="hidden"
           animate="visible"
-          variants={currentImageVariants}
+          variants={imageVariants}
           className="w-full max-w-sm lg:w-1/3 aspect-[3/4] relative overflow-hidden flex-shrink-0 lg:mb-12"
+          style={{ y }}
+          whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
           <div className="absolute inset-0 bg-[#030712] z-0" />
           <img 
@@ -108,7 +114,7 @@ export const Hero = () => {
             }}
           />
           {/* Subtle duotone overlay */}
-          <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-30 z-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20 z-20 pointer-events-none" />
           <div className="absolute inset-0 border border-white/10 z-30 pointer-events-none" />
         </motion.div>
       </div>
