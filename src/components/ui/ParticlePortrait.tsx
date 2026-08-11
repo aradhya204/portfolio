@@ -137,9 +137,7 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      {!loaded && (
-        <img src={src} alt="Portrait" className="w-full h-full object-cover absolute inset-0" />
-      )}
+      <img src={src} alt="Portrait" className="w-full h-full object-cover absolute inset-0 opacity-40" />
       <canvas
         ref={canvasRef}
         style={{ 
