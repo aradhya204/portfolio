@@ -95,7 +95,7 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
           variants={imageVariants}
-          className="w-full max-w-sm lg:w-1/3 aspect-[3/4] relative overflow-hidden flex-shrink-0 lg:mb-12"
+          className="w-full max-w-sm lg:w-1/3 aspect-square rounded-full relative overflow-hidden flex-shrink-0 lg:mb-12 ring-2 ring-white/10 shadow-2xl"
           style={{ y }}
           whileHover={{ scale: 1.02 }}
         >
