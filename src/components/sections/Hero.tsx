@@ -91,16 +91,11 @@ export const Hero = () => {
         </motion.div>
 
         {/* Profile Image */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={imageVariants}
+        <div
           className="w-full max-w-sm lg:w-1/3 aspect-square rounded-full relative overflow-hidden flex-shrink-0 lg:mb-12 ring-2 ring-white/10 shadow-2xl"
-          style={{ y }}
-          whileHover={{ scale: 1.02 }}
         >
           <ParticlePortrait src="/profile.jpg" width={300} height={400} />
-        </motion.div>
+        </div>
       </div>
 
       {/* Subtle Scroll Cue */}
