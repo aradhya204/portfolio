@@ -63,8 +63,6 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
         if (a < 50) continue;
 
         const brightness = (r + g + b) / 3;
-        // Skip very dark pixels to blend with the black background
-        if (brightness < 20) continue;
 
         // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
         const ratio = px / width;
