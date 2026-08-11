@@ -33,15 +33,11 @@ export const Hero = () => {
   const imageVariants = {
     hidden: {
       opacity: 0,
-      clipPath: "inset(100% 0% 0% 0%)",
-      scale: 1.05,
-      filter: "blur(8px)",
+      y: 20,
     },
     visible: {
       opacity: 1,
-      clipPath: "inset(0% 0% 0% 0%)",
-      scale: 1,
-      filter: "blur(0px)",
+      y: 0,
       transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 },
     },
   };
