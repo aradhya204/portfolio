@@ -24,25 +24,25 @@ export const Hero = () => {
     },
   };
 
-  const imageVariants = shouldReduceMotion ? fallbackImageVariants : {
-    hidden: { 
+  const fallbackImageVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1, delay: 0.6 } },
+  };
+
+  const imageVariants = {
+    hidden: {
       opacity: 0,
       clipPath: "inset(100% 0% 0% 0%)",
       scale: 1.05,
       filter: "blur(8px)",
     },
-    visible: { 
+    visible: {
       opacity: 1,
       clipPath: "inset(0% 0% 0% 0%)",
       scale: 1,
       filter: "blur(0px)",
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 },
     },
-  };
-
-  const fallbackImageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 1, delay: 0.6 } }
   };
 
   const { scrollYProgress } = useScroll();
