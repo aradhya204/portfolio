@@ -95,7 +95,7 @@ export const Hero = () => {
         <div
           className="w-full max-w-sm lg:w-1/3 aspect-square rounded-full relative overflow-hidden flex-shrink-0 lg:mb-12 ring-2 ring-white/10 shadow-2xl bg-gray-800"
         >
-          <ParticlePortrait src={profileImg} width={300} height={400} />
+          <ParticlePortrait src="/profile.jpg" width={300} height={400} />
         </div>
       </div>
 
