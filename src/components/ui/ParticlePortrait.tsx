@@ -34,7 +34,9 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
     canvas.height = height;
 
     const img = new Image();
+    img.crossOrigin = 'anonymous'; // Important for canvas pixel manipulation
     img.src = src;
+    
     img.onload = () => {
       setLoaded(true);
 
@@ -103,18 +105,33 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
       };
     };
 
-    img.onerror = () => setLoaded(false);
+    img.onerror = (err) => {
+      console.error("Error loading image for ParticlePortrait", err);
+      setLoaded(false);
+    };
   }, [src, width, height, reduceMotion]);
 
-  // Always show plain img when reduced motion is preferred
   if (reduceMotion) {
-    return <img src={src} alt="Aradhya Raj portrait" className="w-full h-full object-cover" />;
+    return <img src={src} alt="Portrait" className="w-full h-full object-cover" />;
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', height: '100%', display: 'block' }}
-    />
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {!loaded && (
+        <img src={src} alt="Portrait" className="w-full h-full object-cover absolute inset-0" />
+      )}
+      <canvas
+        ref={canvasRef}
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          display: 'block',
+          position: 'absolute',
+          inset: 0,
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out'
+        }}
+      />
+    </div>
   );
 };
