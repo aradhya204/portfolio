@@ -1,35 +1,115 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export const Hero = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    },
+  };
+
+  const imageVariants = {
+    hidden: { 
+      opacity: 0, 
+      clipPath: "inset(100% 0% 0% 0%)",
+      scale: 1.05
+    },
+    visible: { 
+      opacity: 1, 
+      clipPath: "inset(0% 0% 0% 0%)",
+      scale: 1,
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }
+    },
+  };
+
+  const fallbackImageVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1, delay: 0.6 } }
+  };
+
+  const currentImageVariants = shouldReduceMotion ? fallbackImageVariants : imageVariants;
+
   return (
     <section id="home" className="min-h-screen flex flex-col justify-center relative px-6 md:px-12 lg:px-24">
-      <div className="max-w-[90vw] mx-auto w-full">
+      <div className="max-w-[90vw] mx-auto w-full flex flex-col-reverse lg:flex-row items-center lg:items-end justify-between gap-12 lg:gap-24 pt-20">
+        
+        {/* Text Content */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col w-full lg:w-2/3"
         >
-          <h1 className="text-hero font-black leading-[0.9] tracking-tighter uppercase text-white">
-            Aradhya
-          </h1>
-          <h1 className="text-hero font-black leading-[0.9] tracking-tighter uppercase text-white flex flex-wrap gap-4 md:gap-8 items-baseline">
-            <span className="text-primary">Raj</span>
-            <span className="font-serif italic font-normal text-hero-sub text-accent lowercase tracking-normal">
-              full stack engineer
-            </span>
-          </h1>
+          <div className="flex overflow-hidden">
+            <motion.h1 
+              variants={wordVariants}
+              className="text-[clamp(4rem,10vw,12rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
+            >
+              Aradhya
+            </motion.h1>
+          </div>
+          
+          <div className="flex flex-wrap gap-4 md:gap-8 items-baseline overflow-hidden mt-2">
+            <motion.span 
+              variants={wordVariants}
+              className="text-[clamp(4rem,10vw,12rem)] font-black leading-[0.9] tracking-tighter uppercase text-primary"
+            >
+              Raj
+            </motion.span>
+            <motion.span 
+              variants={wordVariants}
+              className="font-serif italic font-normal text-[clamp(1.5rem,3vw,3rem)] text-accent lowercase tracking-normal"
+            >
+              full stack developer
+            </motion.span>
+          </div>
+
+          <motion.div
+            variants={wordVariants}
+            className="mt-12 md:mt-16 max-w-xl"
+          >
+            <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
+              Building scalable, high-performance web applications with modern frontend technologies and robust backend architectures.
+            </p>
+          </motion.div>
         </motion.div>
 
+        {/* Profile Image */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-16 md:mt-24 max-w-xl"
+          initial="hidden"
+          animate="visible"
+          variants={currentImageVariants}
+          className="w-full max-w-sm lg:w-1/3 aspect-[3/4] relative overflow-hidden flex-shrink-0 lg:mb-12"
         >
-          <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
-            Building scalable, high-performance web applications with modern frontend technologies and robust backend architectures.
-          </p>
+          <div className="absolute inset-0 bg-[#030712] z-0" />
+          <img 
+            src="/profile.jpg" 
+            alt="Aradhya Raj" 
+            className="w-full h-full object-cover relative z-10 grayscale mix-blend-screen opacity-80 transition-opacity hover:opacity-100 hover:grayscale-0 duration-500"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+              (e.target as HTMLImageElement).parentElement!.classList.add('bg-gradient-to-tr', 'from-primary/20', 'to-accent/20');
+            }}
+          />
+          {/* Subtle duotone overlay */}
+          <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-30 z-20 pointer-events-none" />
+          <div className="absolute inset-0 border border-white/10 z-30 pointer-events-none" />
         </motion.div>
       </div>
 
@@ -37,8 +117,8 @@ export const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-12 left-6 md:left-12 lg:left-24 flex items-center gap-4"
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-6 md:left-12 lg:left-24 flex items-center gap-4"
       >
         <span className="text-xs font-semibold tracking-[0.2em] text-gray-500 uppercase">Scroll</span>
         <div className="w-12 h-[1px] bg-gray-700 overflow-hidden relative">
