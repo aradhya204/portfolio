@@ -50,9 +50,9 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
 
       const particles: Particle[] = [];
       
-      // Significantly increase density: step 3 = ~13,000 particles
+      // Very high density for stipple effect
       const isMobile = window.innerWidth < 768;
-      const step = isMobile ? 5 : 3;
+      const step = isMobile ? 4 : 2;
 
       for (let py = 0; py < height; py += step) {
         for (let px = 0; px < width; px += step) {
@@ -66,25 +66,43 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
           if (a < 50) continue;
 
           const brightness = (r + g + b) / 3;
-          // Skip absolute black to keep the background clean
-          if (brightness < 15) continue;
+          // Skip the darkest pixels to allow the black background to show through
+          if (brightness < 30) continue;
 
-          // Use original colors but slightly boost saturation/brightness
-          const colorR = r;
-          const colorG = g;
-          const colorB = b;
+          // Normalize brightness from 30-255 to 0-1
+          const t = (brightness - 30) / 225;
 
-          // Make the particles slightly semi-transparent so they blend
-          const alpha = 0.8; 
+          let colorR, colorG, colorB;
+          
+          if (t < 0.5) {
+            // Dark to Mid: Blue (#3B82F6) to Purple (#8B5CF6)
+            const t2 = t * 2; // 0 to 1
+            colorR = Math.round(59 + (139 - 59) * t2);
+            colorG = Math.round(130 + (92 - 130) * t2);
+            colorB = Math.round(246 + (246 - 246) * t2);
+          } else {
+            // Mid to Bright: Purple (#8B5CF6) to Light Blue/White (#E0E7FF)
+            const t2 = (t - 0.5) * 2; // 0 to 1
+            colorR = Math.round(139 + (224 - 139) * t2);
+            colorG = Math.round(92 + (231 - 92) * t2);
+            colorB = Math.round(246 + (255 - 246) * t2);
+          }
 
-          // Uniform size or slight random variation looks better for true-color dot matrix
-          const size = Math.random() * 1.2 + 0.5;
+          // Opacity maps to brightness so highlights pop
+          const alpha = 0.4 + (t * 0.6); 
+
+          // Uniform small size for a fine stipple effect
+          const size = 1.2;
+
+          // Add slight random offset to break the rigid grid and create a stipple/artistic feel
+          const offsetX = (Math.random() - 0.5) * step;
+          const offsetY = (Math.random() - 0.5) * step;
 
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            homeX: px,
-            homeY: py,
+            homeX: px + offsetX,
+            homeY: py + offsetY,
             color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
             size,
           });
@@ -112,14 +130,14 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
         const scaleY = height / rect.height;
         const mx = (e.clientX - rect.left) * scaleX;
         const my = (e.clientY - rect.top) * scaleY;
-        const radius = 70;
+        const radius = 60; // Slightly smaller radius for tighter interaction
         for (const p of particles) {
           const dx = p.x - mx;
           const dy = p.y - my;
           const dist = Math.hypot(dx, dy);
           if (dist < radius) {
             const angle = Math.atan2(dy, dx);
-            const force = ((radius - dist) / radius) * 15;
+            const force = ((radius - dist) / radius) * 8; // Softer force
             p.x += Math.cos(angle) * force;
             p.y += Math.sin(angle) * force;
           }
