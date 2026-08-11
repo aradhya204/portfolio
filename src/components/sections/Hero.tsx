@@ -1,8 +1,35 @@
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion, useReducedMotion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ParticlePortrait } from '../ui/ParticlePortrait';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
+
+  // 3D Parallax Tilt state
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 100 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 100 });
+  
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [15, -15]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-15, 15]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const xPct = (e.clientX - rect.left) / width - 0.5;
+    const yPct = (e.clientY - rect.top) / height - 0.5;
+    mouseX.set(xPct);
+    mouseY.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   // Animation variants
   const containerVariants = {
@@ -33,11 +60,11 @@ export const Hero = () => {
   const imageVariants = {
     hidden: {
       opacity: 0,
-      y: 20,
+      scale: 0.8,
     },
     visible: {
       opacity: 1,
-      y: 0,
+      scale: 1,
       transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 },
     },
   };
@@ -90,12 +117,36 @@ export const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Profile Image */}
-        <div
-          className="w-full max-w-sm lg:w-1/3 aspect-square rounded-full relative overflow-hidden flex-shrink-0 lg:mb-12 ring-2 ring-white/10 shadow-2xl bg-gray-800"
+        {/* Profile Image Container */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
+          className="relative w-full max-w-sm lg:w-1/3 aspect-square flex-shrink-0 lg:mb-12"
+          style={{ perspective: 1000, y }}
         >
-          <ParticlePortrait src="/profile.jpg" width={300} height={400} />
-        </div>
+          {/* Animated Gradient Border */}
+          <motion.div 
+            className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-primary via-purple-500 to-accent opacity-75 blur-[2px]"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+          />
+          
+          {/* Tilt Container */}
+          <motion.div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ 
+              rotateX: shouldReduceMotion ? 0 : rotateX, 
+              rotateY: shouldReduceMotion ? 0 : rotateY 
+            }}
+            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="relative w-full h-full rounded-full overflow-hidden bg-gray-900 border-[3px] border-black shadow-2xl z-10"
+          >
+             <ParticlePortrait src="/profile.jpg" width={400} height={400} />
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Subtle Scroll Cue */}
