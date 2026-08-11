@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { SectionHeading } from '../ui/SectionHeading';
-import { FaCalendarAlt } from 'react-icons/fa';
 
 const experiences = [
   {
@@ -19,51 +17,48 @@ const experiences = [
 
 export const Experience = () => {
   return (
-    <section id="experience" className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <SectionHeading 
-          title="Experience" 
-          subtitle="My professional journey and industry experience."
-        />
+    <section id="experience" className="py-32 bg-[#030712] border-t border-white/5 relative">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <h2 className="text-section-title font-black uppercase tracking-tighter leading-none mb-4">
+            Experience<span className="text-primary">.</span>
+          </h2>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto relative">
-          {/* Timeline Line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-white/10" />
-
+        <div className="max-w-5xl">
           {experiences.map((exp, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative flex flex-col md:flex-row items-center mb-12 last:mb-0"
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className="flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 border-t border-white/10 first:border-t-0 first:pt-0"
             >
-              {/* Timeline Dot */}
-              <div className="absolute left-[-8px] md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-primary shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10" />
-              
-              {/* Content */}
-              <div className="w-full md:w-1/2 pl-8 md:pl-0 md:pr-16 text-left md:text-right mb-4 md:mb-0 group cursor-default">
-                <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors duration-300">{exp.role}</h3>
-                <h4 className="text-xl text-secondary font-medium mb-2">{exp.company}</h4>
-                <div className="flex items-center md:justify-end gap-2 text-sm text-gray-400 font-mono mb-4">
-                  <FaCalendarAlt className="text-accent" />
+              <div className="w-full lg:w-1/3 shrink-0">
+                <h3 className="text-2xl font-bold text-white mb-2">{exp.role}</h3>
+                <h4 className="text-lg font-serif italic text-accent mb-4">{exp.company}</h4>
+                <div className="text-sm font-semibold tracking-[0.2em] text-gray-500 uppercase">
                   {exp.period}
                 </div>
               </div>
 
-              {/* Highlights */}
-              <div className="w-full md:w-1/2 pl-8 md:pl-16">
-                <div className="glass-card p-8 border-l-4 border-l-primary hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] transition-all duration-500">
-                  <ul className="space-y-4">
-                    {exp.highlights.map((item, i) => (
-                      <li key={i} className="text-gray-300 text-sm leading-relaxed flex items-start group">
-                        <span className="text-accent mr-3 mt-1 opacity-70 group-hover:opacity-100 transition-opacity">▹</span>
-                        <span className="group-hover:text-white transition-colors">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="w-full lg:w-2/3">
+                <ul className="space-y-4">
+                  {exp.highlights.map((item, i) => (
+                    <li key={i} className="text-gray-300 text-base leading-relaxed flex items-start">
+                      <span className="text-primary mr-3 mt-1.5 opacity-70 text-xs">■</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}
