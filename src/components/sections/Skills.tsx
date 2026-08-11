@@ -46,7 +46,7 @@ export const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-32 bg-[#030712] border-t border-white/5 relative">
+    <section id="skills" className="py-32 border-t border-white/5 relative">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         
         <motion.div
