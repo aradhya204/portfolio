@@ -48,38 +48,40 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
       const imgData = offCtx.getImageData(0, 0, width, height).data;
 
       const particles: Particle[] = [];
-      const step = Math.max(2, Math.floor((width * height) / 1200));
+      const step = Math.max(3, Math.floor(Math.sqrt((width * height) / 1500)));
 
-      for (let i = 0; i < width * height; i += step) {
-        const px = i % width;
-        const py = Math.floor(i / width);
-        const idx = (py * width + px) * 4;
-        
-        const r = imgData[idx];
-        const g = imgData[idx + 1];
-        const b = imgData[idx + 2];
-        const a = imgData[idx + 3];
-        
-        if (a < 50) continue;
+      for (let py = 0; py < height; py += step) {
+        for (let px = 0; px < width; px += step) {
+          const idx = (py * width + px) * 4;
+          
+          const r = imgData[idx];
+          const g = imgData[idx + 1];
+          const b = imgData[idx + 2];
+          const a = imgData[idx + 3];
+          
+          if (a < 50) continue;
 
-        const brightness = (r + g + b) / 3;
+          const brightness = (r + g + b) / 3;
+          // Skip very dark pixels to blend with the black background
+          if (brightness < 20) continue;
 
-        // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
-        const ratio = px / width;
-        const colorR = Math.round(59 + (139 - 59) * ratio); // 139 is hex 8B
-        const colorG = Math.round(130 + (92 - 130) * ratio); // 92 is hex 5C
-        const colorB = Math.round(246 + (246 - 246) * ratio); // 246 is hex F6
+          // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
+          const ratio = px / width;
+          const colorR = Math.round(59 + (139 - 59) * ratio); // 139 is hex 8B
+          const colorG = Math.round(130 + (92 - 130) * ratio); // 92 is hex 5C
+          const colorB = Math.round(246 + (246 - 246) * ratio); // 246 is hex F6
 
-        // Opacity based on brightness to retain the portrait's shading/depth
-        const alpha = (brightness / 255) * 0.8 + 0.2; 
+          // Opacity based on brightness to retain the portrait's shading/depth
+          const alpha = (brightness / 255) * 0.8 + 0.2; 
 
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          homeX: px,
-          homeY: py,
-          color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
-        });
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            homeX: px,
+            homeY: py,
+            color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
+          });
+        }
       }
 
       let animId: number;
