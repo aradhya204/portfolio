@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ParticlePortrait } from '../ui/ParticlePortrait';
+
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
 
@@ -103,11 +104,7 @@ export const Hero = () => {
           whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
-          {shouldReduceMotion ? (
-            <img src="/profile.jpg" alt="Portrait" className="w-full h-full object-cover" style={{ width: 300, height: 400 }} />
-          ) : (
-            <ParticlePortrait src="/profile.jpg" width={300} height={400} />
-          )}
+          <ParticlePortrait src="/profile.jpg" width={300} height={400} />
         </motion.div>
       </div>
 
