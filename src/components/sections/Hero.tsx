@@ -1,4 +1,4 @@
-
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
