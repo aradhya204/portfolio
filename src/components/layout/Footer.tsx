@@ -31,9 +31,9 @@ export const Footer = () => {
         </div>
         
         <div className="border-t border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© {currentYear} Aradhya H. All rights reserved.</p>
+          <p>© {currentYear} Aradhya. All rights reserved.</p>
           <p>
-            Designed and Developed by <span className="text-gray-300 font-medium">Aradhya H</span>
+            Designed and Developed by <span className="text-gray-300 font-medium">Aradhya</span>
           </p>
         </div>
       </div>
