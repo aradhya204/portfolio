@@ -90,7 +90,6 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
             color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
             size,
           });
-          });
         }
       }
 
