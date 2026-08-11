@@ -1,6 +1,5 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ParticlePortrait } from '../ui/ParticlePortrait';
-import profileImg from 'C:/Users/aradh/.gemini/antigravity-ide/brain/305fde7b-df25-4421-b00d-3a93dfdbfaa4/profile_pic_1786472674011.png';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
