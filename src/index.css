@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,30 +24,22 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-cards rounded-full border-2 border-background;
+  @apply bg-[#1a202c] rounded-full border-2 border-background;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary/80;
 }
 
-/* Glassmorphism utilities */
+/* Redefined utilities for flat/editorial look instead of glassmorphism */
 .glass {
-  @apply bg-cards/60 backdrop-blur-xl border border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  @apply bg-[#0f141e] border border-white/5;
 }
 
 .glass-card {
-  @apply bg-cards/40 backdrop-blur-md border border-white/10 rounded-2xl transition-all duration-300 hover:bg-cards/60 hover:border-white/20 hover:shadow-lg hover:shadow-primary/20;
+  @apply bg-[#0f141e] border border-white/5 transition-all duration-300 hover:bg-[#151b29] hover:border-white/10;
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[#8B5CF6] to-accent;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
 }
