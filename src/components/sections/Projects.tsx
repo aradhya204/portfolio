@@ -1,253 +1,130 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { SectionHeading } from '../ui/SectionHeading';
-import { FaGithub, FaExternalLinkAlt, FaFileAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { SiReact, SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiJsonwebtokens, SiDocker, SiRedis, SiNextdotjs, SiTypescript, SiPython, SiFastapi, SiScikitlearn } from 'react-icons/si';
-import { ArchitectureDiagram } from '../../components/ArchitectureDiagram';
-import { EngineeringDecisions } from '../../components/EngineeringDecisions';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
     title: "FinSphere",
-    subtitle: "AI-Powered Personal Finance Platform",
-    description: "A multi-tenant finance platform for multi-member families with secure auth, role-based access control, and full audit logging.",
+    subtitle: "AI-Powered Personal Finance",
+    description: "Multi-tenant platform with secure auth and RBAC.",
     hasLiveDemo: false,
-    features: ["Family Expense Management", "Secure Authentication", "Role Based Access Control", "Analytics Dashboard", "Income & Expense Tracking", "PDF & Excel Reports"],
+    gradient: "from-[#3B82F6] to-[#1D4ED8]",
     tech: [
       { name: "React", icon: <SiReact /> },
       { name: "Node.js", icon: <SiNodedotjs /> },
-      { name: "Express", icon: <SiExpress /> },
       { name: "PostgreSQL", icon: <SiPostgresql /> },
-      { name: "Prisma", icon: <SiPrisma /> },
-      { name: "JWT", icon: <SiJsonwebtokens /> },
-      { name: "Docker", icon: <SiDocker /> }
+      { name: "Prisma", icon: <SiPrisma /> }
     ],
     links: [
-      { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> },
-      { name: "GitHub", url: "#", icon: <FaGithub /> },
-      { name: "Case Study", url: "#", icon: <FaFileAlt /> }
-    ],
-    architecture: {
-      nodes: [
-        { id: "client", x: 50, y: 40, label: "Client (React UI)", tooltip: "React front‑end UI" },
-        { id: "gateway", x: 250, y: 40, label: "Express API Gateway", tooltip: "Entry point for client requests" },
-        { id: "auth", x: 250, y: 120, label: "Auth Middleware (JWT + Refresh Tokens)", tooltip: "Handles authentication and token refresh" },
-        { id: "rbac", x: 250, y: 200, label: "RBAC Layer (Role‑Based Access)", tooltip: "Enforces role‑based permissions" },
-        { id: "income", x: 450, y: 150, label: "Income Controller", tooltip: "Manages income data" },
-        { id: "expense", x: 450, y: 200, label: "Expense Controller", tooltip: "Manages expense data" },
-        { id: "budget", x: 450, y: 250, label: "Budget Controller", tooltip: "Handles budgeting logic" },
-        { id: "analytics", x: 450, y: 300, label: "Analytics Controller", tooltip: "Generates analytics" },
-        { id: "db", x: 650, y: 200, label: "PostgreSQL (via Prisma ORM)", tooltip: "Relational storage for all data" },
-        { id: "audit", x: 850, y: 180, label: "Audit Log", tooltip: "Records every sensitive action" },
-        { id: "report", x: 850, y: 320, label: "PDF/Excel Report Generator", tooltip: "Creates downloadable reports" }
-      ],
-      edges: [
-        { from: "client", to: "gateway" },
-        { from: "gateway", to: "auth" },
-        { from: "auth", to: "rbac" },
-        { from: "rbac", to: "income" },
-        { from: "rbac", to: "expense" },
-        { from: "rbac", to: "budget" },
-        { from: "rbac", to: "analytics" },
-        { from: "income", to: "db" },
-        { from: "expense", to: "db" },
-        { from: "budget", to: "db" },
-        { from: "analytics", to: "db" },
-        { from: "db", to: "audit" },
-        { from: "analytics", to: "report" }
-      ]
-    }
+      { name: "GitHub", url: "#", icon: <FaGithub /> }
+    ]
   },
   {
-    title: "Distributed Rate Limiter & API Gateway",
+    title: "API Gateway",
     subtitle: "High-Performance Middleware",
-    description: "Middleware-based API gateway implementing multiple rate-limiting algorithms with Redis-backed atomic counters.",
+    description: "Rate limiter with Redis atomic counters.",
     hasLiveDemo: true,
-    features: ["Token Bucket", "Sliding Window", "Fixed Window Counter", "Redis Atomic Counters", "Per User Rate Limits", "Docker Deployment"],
+    gradient: "from-[#10B981] to-[#047857]",
     tech: [
       { name: "Node.js", icon: <SiNodedotjs /> },
       { name: "Redis", icon: <SiRedis /> },
       { name: "Docker", icon: <SiDocker /> },
-      { name: "Express", icon: <SiExpress /> },
-      { name: "React", icon: <SiReact /> }
+      { name: "Express", icon: <SiExpress /> }
     ],
     links: [
-      { name: "GitHub", url: "#", icon: <FaGithub /> },
-      { name: "Architecture", url: "#", icon: <FaFileAlt /> }
-    ],
-    architecture: {
-      nodes: [
-        { id: "client", x: 30, y: 30, label: "Client Request" },
-        { id: "gateway", x: 200, y: 30, label: "API Gateway (Middleware)" },
-        { id: "token", x: 380, y: 30, label: "Token Bucket" },
-        { id: "sliding", x: 380, y: 120, label: "Sliding Window Log" },
-        { id: "fixed", x: 380, y: 210, label: "Fixed Window Counter" },
-        { id: "redis", x: 560, y: 120, label: "Redis" },
-        { id: "allowed", x: 750, y: 30, label: "Allowed" },
-        { id: "blocked", x: 750, y: 120, label: "Blocked" }
-      ],
-      edges: [
-        { from: "client", to: "gateway" },
-        { from: "gateway", to: "token" },
-        { from: "gateway", to: "sliding" },
-        { from: "gateway", to: "fixed" },
-        { from: "token", to: "redis" },
-        { from: "sliding", to: "redis" },
-        { from: "fixed", to: "redis" },
-        { from: "gateway", to: "allowed" },
-        { from: "gateway", to: "blocked" }
-      ]
-    }
+      { name: "GitHub", url: "#", icon: <FaGithub /> }
+    ]
   },
   {
     title: "CodeSentry",
-    subtitle: "AI Code Review & Bug Prediction",
-    description: "Full-stack monorepo platform with a self-trained ML model for bug prediction and OCR-based code extraction.",
+    subtitle: "AI Code Review",
+    description: "Self-trained ML model for bug prediction and OCR extraction.",
     hasLiveDemo: true,
-    features: ["AI Code Review", "ML Bug Prediction", "OCR Code Extraction", "JWT Authentication", "FastAPI Integration"],
+    gradient: "from-[#8B5CF6] to-[#6D28D9]",
     tech: [
       { name: "Next.js", icon: <SiNextdotjs /> },
-      { name: "TypeScript", icon: <SiTypescript /> },
       { name: "Python", icon: <SiPython /> },
       { name: "FastAPI", icon: <SiFastapi /> },
-      { name: "Scikit-learn", icon: <SiScikitlearn /> },
-      { name: "PostgreSQL", icon: <SiPostgresql /> },
-      { name: "Docker", icon: <SiDocker /> }
+      { name: "Scikit-learn", icon: <SiScikitlearn /> }
     ],
     links: [
       { name: "GitHub", url: "#", icon: <FaGithub /> },
-      { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> },
-      { name: "Case Study", url: "#", icon: <FaFileAlt /> }
-    ],
-    architecture: {
-      nodes: [
-        { id: "client", x: 50, y: 40, label: "Client (Next.js Frontend)", tooltip: "Next.js UI for developers" },
-        { id: "api", x: 250, y: 40, label: "Node.js/Express API", tooltip: "Main backend API" },
-        { id: "auth", x: 250, y: 120, label: "JWT + RBAC Auth (Developer/Admin roles)", tooltip: "Authentication & role checks" },
-        { id: "mlsvc", x: 450, y: 80, label: "Python/FastAPI ML Microservice", tooltip: "ML service for bug prediction" },
-        { id: "model", x: 650, y: 80, label: "Scikit‑learn Model (~80% accuracy)", tooltip: "Trained bug prediction model" },
-        { id: "mlresult", x: 850, y: 80, label: "Bug Prediction Result", tooltip: "Prediction output" },
-        { id: "ocrsvc", x: 450, y: 200, label: "OCR Code Extraction Service", tooltip: "Extracts code via OCR" },
-        { id: "parser", x: 650, y: 200, label: "Code Submission Parser", tooltip: "Parses extracted code" },
-        { id: "db", x: 850, y: 150, label: "PostgreSQL (via Prisma ORM)", tooltip: "Stores results and metadata" }
-      ],
-      edges: [
-        { from: "client", to: "api" },
-        { from: "api", to: "auth" },
-        { from: "auth", to: "mlsvc" },
-        { from: "mlsvc", to: "model" },
-        { from: "model", to: "mlresult" },
-        { from: "auth", to: "ocrsvc" },
-        { from: "ocrsvc", to: "parser" },
-        { from: "mlresult", to: "db" },
-        { from: "parser", to: "db" }
-      ]
-    }
+      { name: "Live Demo", url: "#", icon: <FaExternalLinkAlt /> }
+    ]
   }
 ];
 
 export const Projects = () => {
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
   return (
-    <section id="projects" className="py-24 bg-cards/30 relative">
-      <div className="container mx-auto px-6">
-        <SectionHeading 
-          title="Featured Projects" 
-          subtitle="A selection of my recent full-stack applications and system architectures."
-        />
+    <section id="projects" className="py-32 bg-[#030712] border-t border-white/5">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-section-title font-black uppercase tracking-tighter leading-none">
+            Work<span className="text-primary">.</span>
+          </h2>
+        </motion.div>
+      </div>
 
-        <div className="flex flex-col gap-16">
+      <div className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           {projects.map((project, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="group glass-card rounded-3xl overflow-hidden flex flex-col lg:flex-row relative"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className={`group relative aspect-square md:aspect-[4/3] overflow-hidden flex flex-col justify-end p-8 md:p-12 ${
+                index === 2 ? 'md:col-span-2 md:aspect-[21/9]' : ''
+              }`}
             >
-              {/* Animated hover background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
+              {/* Background Panel (Gradient as Image Placeholder) */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-80 group-hover:scale-105 transition-transform duration-1000 ease-out`} />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-500" />
 
-              <div className="w-full lg:w-5/12 p-8 lg:p-12 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-white/10 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+              {/* Content overlaid */}
+              <div className="relative z-10 w-full">
+                <h4 className="text-white/80 font-serif italic text-xl md:text-2xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  {project.subtitle}
+                </h4>
+                <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  {project.title}
+                </h3>
                 
-                <h4 className="text-secondary text-sm font-mono mb-2 tracking-wider uppercase">{project.subtitle}</h4>
-                <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all duration-300">{project.title}</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-col gap-4 mt-auto relative z-10">
-                  <div className="flex flex-wrap gap-4">
-                    {project.links
-                      .filter(link => link.name === "Live Demo" && project.hasLiveDemo)
-                      .map((link, i) => (
-                        <a 
-                          key={i} 
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white hover:underline decoration-primary underline-offset-4 transition-all hover:scale-105"
-                        >
-                          {link.icon} {link.name}
-                        </a>
-                      ))}
-                  </div>
-                  
-                  <div className="flex flex-col">
-                          <button
-                            onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-                            className="flex items-center gap-2 text-sm font-medium text-primary hover:text-white transition w-fit"
-                          >
-                            {expandedProject === project.title ? 'Hide Architecture' : 'Explore Architecture'}
-                            {expandedProject === project.title ? <FaChevronUp /> : <FaChevronDown />}
-                          </button>
-                          
-                          {expandedProject === project.title && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.4 }}
-                              className="mt-4 overflow-hidden rounded-xl bg-black/20 p-2"
-                            >
-                              <ArchitectureDiagram nodes={project.architecture.nodes} edges={project.architecture.edges} />
-                            </motion.div>
-                          )}
-                        </div>
-                </div>
-              </div>
-
-              <div className="w-full lg:w-7/12 p-8 lg:p-12 bg-black/10 backdrop-blur-sm">
-                <div className="mb-8">
-                  <h5 className="text-white font-semibold mb-4 flex items-center gap-2">
-                    <span className="w-6 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span> Core Features
-                  </h5>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {project.features.map((feature, i) => (
-                      <li key={i} className="text-sm text-gray-400 flex items-center gap-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent"></span> {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h5 className="text-white font-semibold mb-4 flex items-center gap-2">
-                    <span className="w-6 h-1 bg-gradient-to-r from-secondary to-primary rounded-full"></span> Technologies
-                  </h5>
-                  <div className="flex flex-wrap gap-3">
-                    {project.tech.map((tech, i) => (
-                      <div 
-                        key={i} 
-                        className="flex items-center gap-2 px-4 py-2 bg-background/50 rounded-xl border border-white/5 text-sm text-gray-300 group-hover:border-white/10 group-hover:bg-white/5 hover:-translate-y-1 transition-all duration-300 shadow-sm"
-                        title={tech.name}
-                      >
-                        <span className="text-primary text-lg">{tech.icon}</span>
-                        {tech.name}
+                {/* Reveal on hover */}
+                <div className="overflow-hidden">
+                  <div className="opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 ease-out flex flex-col gap-6">
+                    <p className="text-gray-200 text-lg md:text-xl font-medium max-w-2xl">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/20 pt-6">
+                      <div className="flex items-center gap-4">
+                        {project.tech.map((tech, i) => (
+                          <div key={i} className="text-white/90 text-2xl hover:text-white hover:scale-110 transition-transform" title={tech.name}>
+                            {tech.icon}
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                      <div className="flex gap-4">
+                        {project.links.map((link, i) => (
+                          <a 
+                            key={i} 
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors"
+                          >
+                            {link.icon}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
