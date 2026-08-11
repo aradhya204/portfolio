@@ -136,10 +136,22 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
   }
 
   return (
-    <div className="w-full h-full bg-red-500 relative flex items-center justify-center border-4 border-white">
-      <span className="text-white font-bold z-10 absolute">PORTRAIT CONTAINER</span>
-      <img src={src} alt="Portrait" className="w-full h-full object-cover opacity-50" />
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {!loaded && (
+        <img src={src} alt="Portrait" className="w-full h-full object-cover absolute inset-0" />
+      )}
+      <canvas
+        ref={canvasRef}
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          display: 'block',
+          position: 'absolute',
+          inset: 0,
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out'
+        }}
+      />
     </div>
   );
 };
