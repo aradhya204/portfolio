@@ -1,7 +1,22 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 export const About = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3 },
+    },
+  };
+
+  const colVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
   return (
     <section id="about" className="py-32 relative border-t border-white/5 bg-[#030712]">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
@@ -18,14 +33,16 @@ export const About = () => {
           </h2>
         </motion.div>
         
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          
+        <motion.div 
+          className="flex flex-col lg:flex-row gap-16 lg:gap-24"
+          variants={shouldReduceMotion ? {} : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {/* Left Column: Resume Card */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            variants={shouldReduceMotion ? {} : colVariants}
             className="w-full lg:w-1/3 flex flex-col gap-8 border-l-2 border-white/10 pl-6 lg:pl-10 py-2"
           >
             <div>
@@ -50,13 +67,13 @@ export const About = () => {
             </div>
 
             <div className="pt-4 flex items-center gap-6">
-              <a href="https://github.com/aradhya204" target="_blank" className="text-gray-500 hover:text-white transition-colors" rel="noreferrer">
+              <a href="https://github.com/aradhya204" target="_blank" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu" rel="noreferrer">
                 <FaGithub size={20} />
               </a>
-              <a href="https://linkedin.com/in/aradhya-raj-570509312" target="_blank" className="text-gray-500 hover:text-white transition-colors" rel="noreferrer">
+              <a href="https://linkedin.com/in/aradhya-raj-570509312" target="_blank" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu" rel="noreferrer">
                 <FaLinkedin size={20} />
               </a>
-              <a href="mailto:aradhyaraj7422@gmail.com" className="text-gray-500 hover:text-white transition-colors">
+              <a href="mailto:aradhyaraj7422@gmail.com" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu">
                 <FaEnvelope size={20} />
               </a>
             </div>
@@ -64,10 +81,7 @@ export const About = () => {
           
           {/* Right Column: Bio */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={shouldReduceMotion ? {} : colVariants}
             className="w-full lg:w-2/3"
           >
             <div className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-gray-300">
@@ -82,7 +96,7 @@ export const About = () => {
               </p>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
