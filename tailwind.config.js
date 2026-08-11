@@ -8,9 +8,9 @@ export default {
     extend: {
       colors: {
         background: '#030712',
-        primary: '#F59E0B', // Amber
-        accent: '#EC4899', // Pink
-        secondary: '#8B5CF6',
+        primary: '#3B82F6', // Blue 500
+        accent: '#8B5CF6', // Purple 500
+        secondary: '#6366F1', // Blue 600 (used for tint)
         cards: '#111827',
         text: '#F8FAFC',
       },
