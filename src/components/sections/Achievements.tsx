@@ -37,7 +37,7 @@ const Counter = ({ from = 0, to, duration = 2 }: { from?: number, to: number, du
 
 export const Achievements = () => {
   return (
-    <section className="py-32 relative bg-[#030712] border-t border-white/5">
+    <section className="py-32 relative border-t border-white/5">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         
         <motion.div

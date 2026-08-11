@@ -196,7 +196,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
 
 export const Projects = () => {
   return (
-    <section id="projects" className="py-32 bg-[#030712] border-t border-white/5 overflow-hidden">
+    <section id="projects" className="py-32 border-t border-white/5 overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-24 mb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

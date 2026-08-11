@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export const Contact = () => {
   return (
-    <section id="contact" className="py-32 md:py-48 bg-[#030712] relative flex flex-col items-center justify-center border-t border-white/5">
+    <section id="contact" className="py-32 md:py-48 relative flex flex-col items-center justify-center border-t border-white/5">
       <div className="container mx-auto px-6 md:px-12 text-center">
         
         <motion.div
