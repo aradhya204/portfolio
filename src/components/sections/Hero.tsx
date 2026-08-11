@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-
+import { ParticlePortrait } from '../ui/ParticlePortrait';
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
 
