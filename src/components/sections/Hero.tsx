@@ -103,19 +103,7 @@ export const Hero = () => {
           whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
-          <div className="absolute inset-0 bg-[#030712] z-0" />
-          <img 
-            src="/profile.jpg" 
-            alt="Aradhya Raj" 
-            className="w-full h-full object-cover relative z-10 grayscale mix-blend-screen opacity-80 transition-opacity hover:opacity-100 hover:grayscale-0 duration-500"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-              (e.target as HTMLImageElement).parentElement!.classList.add('bg-gradient-to-tr', 'from-primary/20', 'to-accent/20');
-            }}
-          />
-          {/* Subtle duotone overlay */}
-          <div className="absolute inset-0 bg-primary mix-blend-multiply opacity-20 z-20 pointer-events-none" />
-          <div className="absolute inset-0 border border-white/10 z-30 pointer-events-none" />
+          <ParticlePortrait src="/profile.jpg" width={300} height={400} />
         </motion.div>
       </div>
 
