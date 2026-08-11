@@ -69,18 +69,16 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
           // Skip absolute black to keep the background clean
           if (brightness < 15) continue;
 
-          // Modulate particle size based on brightness (halftone effect)
-          // Brighter = larger dot, Darker = smaller dot
-          const size = 0.5 + (brightness / 255) * 1.8;
+          // Use original colors but slightly boost saturation/brightness
+          const colorR = r;
+          const colorG = g;
+          const colorB = b;
 
-          // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
-          const ratio = px / width;
-          const colorR = Math.round(59 + (139 - 59) * ratio); 
-          const colorG = Math.round(130 + (92 - 130) * ratio); 
-          const colorB = Math.round(246 + (246 - 246) * ratio);
+          // Make the particles slightly semi-transparent so they blend
+          const alpha = 0.8; 
 
-          // Keep opacity high so particles pop, but modulate slightly
-          const alpha = 0.6 + (brightness / 255) * 0.4; 
+          // Uniform size or slight random variation looks better for true-color dot matrix
+          const size = Math.random() * 1.2 + 0.5;
 
           particles.push({
             x: Math.random() * width,
