@@ -7,6 +7,7 @@ interface Particle {
   homeX: number;
   homeY: number;
   color: string;
+  size: number;
 }
 
 /**
@@ -48,7 +49,10 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
       const imgData = offCtx.getImageData(0, 0, width, height).data;
 
       const particles: Particle[] = [];
-      const step = Math.max(3, Math.floor(Math.sqrt((width * height) / 1500)));
+      
+      // Significantly increase density: step 3 = ~13,000 particles
+      const isMobile = window.innerWidth < 768;
+      const step = isMobile ? 5 : 3;
 
       for (let py = 0; py < height; py += step) {
         for (let px = 0; px < width; px += step) {
@@ -62,17 +66,21 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
           if (a < 50) continue;
 
           const brightness = (r + g + b) / 3;
-          // Skip very dark pixels to blend with the black background
-          if (brightness < 20) continue;
+          // Skip absolute black to keep the background clean
+          if (brightness < 15) continue;
+
+          // Modulate particle size based on brightness (halftone effect)
+          // Brighter = larger dot, Darker = smaller dot
+          const size = 0.5 + (brightness / 255) * 1.8;
 
           // Gradient from Blue (#3B82F6) to Purple (#8B5CF6) based on x-coordinate
           const ratio = px / width;
-          const colorR = Math.round(59 + (139 - 59) * ratio); // 139 is hex 8B
-          const colorG = Math.round(130 + (92 - 130) * ratio); // 92 is hex 5C
-          const colorB = Math.round(246 + (246 - 246) * ratio); // 246 is hex F6
+          const colorR = Math.round(59 + (139 - 59) * ratio); 
+          const colorG = Math.round(130 + (92 - 130) * ratio); 
+          const colorB = Math.round(246 + (246 - 246) * ratio);
 
-          // Opacity based on brightness to retain the portrait's shading/depth
-          const alpha = (brightness / 255) * 0.8 + 0.2; 
+          // Keep opacity high so particles pop, but modulate slightly
+          const alpha = 0.6 + (brightness / 255) * 0.4; 
 
           particles.push({
             x: Math.random() * width,
@@ -80,6 +88,8 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
             homeX: px,
             homeY: py,
             color: `rgba(${colorR},${colorG},${colorB},${alpha})`,
+            size,
+          });
           });
         }
       }
@@ -90,8 +100,11 @@ export const ParticlePortrait: React.FC<{ src: string; width?: number; height?: 
         for (const p of particles) {
           p.x += (p.homeX - p.x) * 0.08;
           p.y += (p.homeY - p.y) * 0.08;
+          
+          ctx.beginPath();
           ctx.fillStyle = p.color;
-          ctx.fillRect(p.x, p.y, 2, 2);
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
         }
         animId = requestAnimationFrame(render);
       };
