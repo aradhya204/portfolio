@@ -1,5 +1,4 @@
 import { motion, useInView } from 'framer-motion';
-import { SectionHeading } from '../ui/SectionHeading';
 import { useRef, useEffect, useState } from 'react';
 
 const stats = [
@@ -21,7 +20,6 @@ const Counter = ({ from = 0, to, duration = 2 }: { from?: number, to: number, du
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
       
-      // Easing function: easeOutQuart
       const easeOut = 1 - Math.pow(1 - progress, 4);
       setCount(Math.floor(easeOut * (to - from) + from));
       
@@ -39,28 +37,36 @@ const Counter = ({ from = 0, to, duration = 2 }: { from?: number, to: number, du
 
 export const Achievements = () => {
   return (
-    <section className="py-24 relative border-t border-b border-white/5 bg-[#080C17]">
-      <div className="container mx-auto px-6">
-        <SectionHeading 
-          title="Achievements" 
-          subtitle="A quick look at my progress and contributions."
-        />
+    <section className="py-32 relative bg-[#030712] border-t border-white/5">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <h2 className="text-section-title font-black uppercase tracking-tighter leading-none mb-4">
+            Impact<span className="text-primary">.</span>
+          </h2>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto mb-32">
           {stats.map((stat, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center text-center p-6"
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className="flex flex-col items-start border-l-2 border-white/10 pl-6"
             >
-              <div className="text-4xl md:text-5xl font-bold text-white mb-2 flex">
+              <div className="text-5xl md:text-6xl font-black text-white mb-2 flex tracking-tighter">
                 <Counter to={stat.value} />
                 <span className="text-primary">{stat.suffix}</span>
               </div>
-              <div className="text-sm md:text-base text-gray-400 font-medium">
+              <div className="text-sm font-semibold tracking-[0.2em] text-gray-500 uppercase mt-2">
                 {stat.label}
               </div>
             </motion.div>
@@ -68,22 +74,21 @@ export const Achievements = () => {
         </div>
 
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 max-w-4xl mx-auto glass rounded-2xl p-8 border border-white/10"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-5xl mx-auto"
         >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-white mb-2">GitHub Activity</h3>
-            <p className="text-gray-400 text-sm">My recent open source contributions and activity.</p>
+          <div className="mb-12">
+            <h3 className="text-xl font-bold text-white mb-2">GitHub Activity</h3>
+            <p className="text-gray-400 font-medium text-lg">My recent open source contributions and activity.</p>
           </div>
-          <div className="w-full flex justify-center overflow-x-auto pb-4">
-            {/* Real github stats could be used here via github-readme-stats */}
+          <div className="w-full flex overflow-x-auto pb-4">
             <img 
-              src="https://ghchart.rshah.org/3B82F6/aradhya204" 
+              src="https://ghchart.rshah.org/F59E0B/aradhya204" 
               alt="Aradhya's GitHub chart" 
-              className="opacity-80 hover:opacity-100 transition-opacity min-w-[600px]"
+              className="opacity-90 hover:opacity-100 transition-opacity min-w-[600px] brightness-125"
             />
           </div>
         </motion.div>
