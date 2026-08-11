@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ParticlePortrait } from '../ui/ParticlePortrait';
+import profileImg from 'C:/Users/aradh/.gemini/antigravity-ide/brain/305fde7b-df25-4421-b00d-3a93dfdbfaa4/profile_pic_1786472674011.png';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -94,7 +95,7 @@ export const Hero = () => {
         <div
           className="w-full max-w-sm lg:w-1/3 aspect-square rounded-full relative overflow-hidden flex-shrink-0 lg:mb-12 ring-2 ring-white/10 shadow-2xl bg-gray-800"
         >
-          <ParticlePortrait src="/profile.jpg" width={300} height={400} />
+          <ParticlePortrait src={profileImg} width={300} height={400} />
         </div>
       </div>
 
