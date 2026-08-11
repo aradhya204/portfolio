@@ -144,7 +144,7 @@ export const Hero = () => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="relative w-full h-full rounded-full overflow-hidden bg-gray-900 border-[3px] border-black shadow-2xl z-10"
           >
-             <img src="/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+             <img src="/profile.png" alt="Profile" className="w-full h-full object-cover" />
           </motion.div>
         </motion.div>
       </div>
