@@ -97,8 +97,7 @@ export const Hero = () => {
           variants={imageVariants}
           className="w-full max-w-sm lg:w-1/3 aspect-[3/4] relative overflow-hidden flex-shrink-0 lg:mb-12"
           style={{ y }}
-          whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+          whileHover={{ scale: 1.02 }}
         >
           <ParticlePortrait src="/profile.jpg" width={300} height={400} />
         </motion.div>
