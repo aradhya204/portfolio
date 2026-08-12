@@ -24,7 +24,7 @@ function App() {
 
   return (
     <motion.div 
-      className="min-h-screen text-text font-sans selection:bg-primary/30 relative"
+      className="min-h-screen text-text font-sans selection:bg-primary/30 relative overflow-x-hidden"
       style={{ backgroundColor: shouldReduceMotion ? '#030712' : backgroundColor }}
     >
       <CustomCursor />
