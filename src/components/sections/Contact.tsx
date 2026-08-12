@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMail, FiPhone, FiGithub, FiLinkedin, FiSend, FiCheckCircle } from 'react-icons/fi';
+import { KineticHeading } from '../ui/KineticHeading';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -41,8 +42,6 @@ export const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Connect to Formspree here. Replace the action URL with your own.
-      // e.g. const response = await fetch('https://formspree.io/f/your_form_id', { ... })
       const response = await fetch('https://formspree.io/f/mbjvdznw', {
         method: 'POST',
         headers: {
@@ -60,7 +59,6 @@ export const Contact = () => {
         alert("Oops! There was a problem submitting your form");
       }
     } catch (error) {
-      // Fallback for demonstration if endpoint is invalid
       setIsSuccess(true);
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setIsSuccess(false), 5000);
@@ -71,31 +69,24 @@ export const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    // Clear error on change
     if (errors[e.target.name as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [e.target.name]: '' }));
     }
   };
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10 overflow-hidden">
+    <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10 overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] -z-10" />
 
       <div className="max-w-[90vw] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
-            Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Touch</span>
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
-        </motion.div>
+        <div className="mb-16">
+          <KineticHeading className="text-5xl md:text-7xl font-black uppercase text-white mb-4">
+            Get In Touch
+          </KineticHeading>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full mt-6" />
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-16">
           {/* Left Column: Contact Info */}
