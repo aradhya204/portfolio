@@ -1,9 +1,7 @@
-import { KineticHeading } from '../ui/KineticHeading';
-
-// ... (keep categories same, but let's replace the whole file for safety)
-// Let's rewrite About.tsx completely using write_to_file since I need to add import and change heading.
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SkillChip } from '../ui/SkillChip';
+import { KineticHeading } from '../ui/KineticHeading';
 
 const SKILL_CATEGORIES = [
   {
@@ -47,20 +45,14 @@ export const About = () => {
   const [activeTab, setActiveTab] = useState(SKILL_CATEGORIES[0].id);
 
   return (
-    <section id="about" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10">
+    <section id="about" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10">
       <div className="max-w-[90vw] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Me</span>
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
-        </motion.div>
+        <div className="mb-16">
+          <KineticHeading className="text-5xl md:text-7xl font-black uppercase text-white mb-4">
+            About Me
+          </KineticHeading>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full mt-6" />
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           {/* Left Column: Photo/Illustration */}
@@ -113,7 +105,7 @@ export const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-4"
             >
-              <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-wide">Technical Arsenal</h3>
+              <h3 className="text-xl font-bold font-display text-white mb-6 uppercase tracking-wide">Technical Arsenal</h3>
               
               <div className="flex flex-wrap gap-2 mb-8">
                 {SKILL_CATEGORIES.map((category) => (
@@ -135,18 +127,22 @@ export const About = () => {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    variants={{
+                      visible: { transition: { staggerChildren: 0.05 } },
+                      hidden: { opacity: 0, y: -10 }
+                    }}
                     className="flex flex-wrap gap-3"
                   >
-                    {SKILL_CATEGORIES.find(c => c.id === activeTab)?.skills.map((skill, index) => (
+                    {SKILL_CATEGORIES.find(c => c.id === activeTab)?.skills.map((skill) => (
                       <motion.div
                         key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        variants={{
+                          hidden: { opacity: 0, scale: 0.8 },
+                          visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } }
+                        }}
                       >
                         <SkillChip name={skill} />
                       </motion.div>
