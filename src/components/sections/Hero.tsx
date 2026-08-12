@@ -54,8 +54,8 @@ export const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center relative px-6 md:px-12 lg:px-24">
-      <div className="max-w-[90vw] mx-auto w-full flex flex-col-reverse lg:flex-row items-center lg:items-end justify-between gap-12 lg:gap-24 pt-20">
+    <section id="home" className="min-h-screen flex flex-col justify-start relative px-6 md:px-12 lg:px-24 pt-28 lg:pt-0 lg:justify-center">
+      <div className="max-w-[90vw] mx-auto w-full flex flex-col lg:flex-row items-center lg:items-end justify-between gap-8 lg:gap-24 lg:pt-20">
         
         {/* Text Content */}
         <motion.div
@@ -129,7 +129,7 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
           variants={imageVariants}
-          className="relative w-full max-w-sm lg:w-1/3 aspect-square flex-shrink-0 lg:mb-12 mx-auto"
+          className="relative w-48 sm:w-64 lg:w-1/3 max-w-sm aspect-square flex-shrink-0 lg:mb-12 mx-auto"
           style={{ perspective: 1000, y }}
         >
           {/* Animated Gradient Border */}
