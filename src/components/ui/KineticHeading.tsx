@@ -48,7 +48,7 @@ export const KineticHeading: React.FC<KineticHeadingProps> = ({
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-10% 0px' }}
+        viewport={{ once: true, amount: 0.3 }}
         className="inline-flex flex-wrap gap-x-[0.3em] gap-y-2"
       >
         {words.map((word, idx) => (
