@@ -1,41 +1,43 @@
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi';
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
-  return (
-    <footer className="bg-[#060913] py-10 border-t border-white/5 relative z-10">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          
-          <div className="text-center md:text-left">
-            <a href="#home" className="text-2xl font-bold tracking-tighter block mb-2">
-              Aradhya<span className="text-primary">.</span>
-            </a>
-            <p className="text-gray-400 text-sm">
-              Building scalable digital experiences.
-            </p>
-          </div>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-          <div className="flex gap-4">
-            <a href="https://github.com/aradhya204" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-cards flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all">
-              <FaGithub size={18} />
-            </a>
-            <a href="https://linkedin.com/in/aradhya-raj-570509312" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-cards flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all">
-              <FaLinkedin size={18} />
-            </a>
-            <a href="mailto:aradhyaraj7422@gmail.com" className="w-10 h-10 rounded-full bg-cards flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all">
-              <FaEnvelope size={18} />
-            </a>
-          </div>
-        </div>
+  return (
+    <footer className="bg-background border-t border-white/5 py-12 px-6 md:px-12 lg:px-24 relative z-10">
+      <div className="max-w-[90vw] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         
-        <div className="border-t border-white/5 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© {currentYear} Aradhya. All rights reserved.</p>
-          <p>
-            Designed and Developed by <span className="text-gray-300 font-medium">Aradhya</span>
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <a href="#home" className="text-xl font-black tracking-tighter">
+            ARADHYA<span className="text-primary">.</span>
+          </a>
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} Aradhya Raj. All rights reserved.
           </p>
         </div>
+
+        <div className="flex items-center gap-6">
+          <a href="https://github.com/aradhya204" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-white transition-colors">
+            <FiGithub size={20} />
+          </a>
+          <a href="https://linkedin.com/in/aradhya-raj-570509312" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-[#0A66C2] transition-colors">
+            <FiLinkedin size={20} />
+          </a>
+          <a href="mailto:aradhyaraj7422@gmail.com" className="text-gray-500 hover:text-primary transition-colors">
+            <FiMail size={20} />
+          </a>
+        </div>
+
+        <button 
+          onClick={scrollToTop}
+          className="w-12 h-12 bg-cards border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all group"
+          aria-label="Back to top"
+        >
+          <FiArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+        </button>
+
       </div>
     </footer>
   );
