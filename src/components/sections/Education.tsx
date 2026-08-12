@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { KineticHeading } from '../ui/KineticHeading';
 
 const educationData = [
   {
@@ -20,20 +21,14 @@ const educationData = [
 
 export const Education = () => {
   return (
-    <section id="education" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10">
+    <section id="education" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
+        <div className="mb-16">
+          <KineticHeading className="text-5xl md:text-7xl font-black uppercase text-white mb-4">
             Education
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
-        </motion.div>
+          </KineticHeading>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full mt-6" />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {educationData.map((edu, index) => (
@@ -44,7 +39,7 @@ export const Education = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ y: -5 }}
-              className="bg-cards border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all shadow-lg relative overflow-hidden group"
+              className="bg-cards/50 backdrop-blur-sm border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all shadow-lg relative overflow-hidden group"
             >
               <div className="absolute -right-10 -top-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors" />
               
@@ -53,7 +48,7 @@ export const Education = () => {
                   {edu.period}
                 </div>
                 
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
+                <h3 className="text-xl md:text-2xl font-bold font-display text-white mb-2 leading-tight">
                   {edu.degree}
                 </h3>
                 
