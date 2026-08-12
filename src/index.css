@@ -10,7 +10,7 @@
   }
   
   body {
-    @apply bg-background text-text overflow-x-hidden;
+    @apply bg-background text-text;
   }
 }
 
