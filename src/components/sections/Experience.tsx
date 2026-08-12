@@ -92,7 +92,7 @@ const TimelineItem = ({ exp, index }: { exp: any, index: number }) => {
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="bg-cards/50 backdrop-blur-sm border border-white/5 p-6 md:p-8 rounded-2xl hover:border-white/10 transition-colors shadow-lg"
       >

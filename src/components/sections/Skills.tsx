@@ -66,7 +66,7 @@ export const Skills = () => {
           variants={shouldReduceMotion ? {} : containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {skillCategories.map((category, index) => (
             <motion.div 
