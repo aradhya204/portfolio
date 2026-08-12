@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { KineticHeading } from '../ui/KineticHeading';
 
 const certifications = [
   "System Analysis & Data Engineering",
@@ -9,20 +10,14 @@ const certifications = [
 
 export const Certifications = () => {
   return (
-    <section id="certifications" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10">
+    <section id="certifications" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10">
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white mb-4">
+        <div className="mb-12 flex flex-col items-center">
+          <KineticHeading className="text-4xl md:text-6xl font-black uppercase text-white mb-4">
             Certifications
-          </h2>
-          <div className="h-1 w-16 bg-gradient-to-r from-primary to-accent rounded-full mx-auto" />
-        </motion.div>
+          </KineticHeading>
+          <div className="h-1 w-16 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-4" />
+        </div>
 
         <motion.div 
           initial="hidden"
@@ -43,7 +38,7 @@ export const Certifications = () => {
                 visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
               }}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="px-6 py-3 bg-cards border border-white/10 rounded-full shadow-lg flex items-center gap-3 hover:border-accent hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all cursor-default"
+              className="px-6 py-3 bg-cards/50 backdrop-blur-sm border border-white/10 rounded-full shadow-lg flex items-center gap-3 hover:border-accent hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all cursor-default"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-accent" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
