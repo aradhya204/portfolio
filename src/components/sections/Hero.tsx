@@ -64,7 +64,7 @@ export const Hero = () => {
           animate="visible"
           className="flex flex-col w-full lg:w-2/3"
         >
-          <div className="flex overflow-hidden">
+          <div className="flex">
             <motion.h1 
               variants={wordVariants}
               className="text-[clamp(3.5rem,10vw,10rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
@@ -73,7 +73,7 @@ export const Hero = () => {
             </motion.h1>
           </div>
           
-          <div className="flex flex-wrap gap-4 md:gap-8 items-baseline overflow-hidden mt-2">
+          <div className="flex flex-wrap gap-4 md:gap-8 items-baseline mt-2">
             <motion.span 
               variants={wordVariants}
               className="text-[clamp(3.5rem,10vw,10rem)] font-black leading-[0.9] tracking-tighter uppercase text-gradient"
