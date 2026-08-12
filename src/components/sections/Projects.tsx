@@ -14,7 +14,7 @@ const projectsData: ProjectData[] = [
       "Integrated automated PDF and Excel reporting features, cutting report preparation time from ~30 minutes to seconds."
     ],
     techStack: ["React.js", "Node.js", "Express.js", "PostgreSQL", "Prisma", "JWT", "Ant Design"],
-    image: "/images/finsphere.png",
+    image: "/@fs/C:/Users/aradh/.gemini/antigravity-ide/brain/e6738687-8dd5-44ac-bf0c-b77ad72d84e8/finsphere_banner_1786543144248.png", // Move to /public/images/finsphere.png for production
     githubUrl: "https://github.com/aradhya204",
   },
   {
@@ -28,7 +28,7 @@ const projectsData: ProjectData[] = [
       "Load-tested horizontal scalability across 3 concurrent instances and built a live-updating React dashboard for real-time traffic visualization."
     ],
     techStack: ["Node.js", "Express.js", "Redis", "Docker", "React.js"],
-    image: "/images/rate-limiter.png",
+    image: "/@fs/C:/Users/aradh/.gemini/antigravity-ide/brain/e6738687-8dd5-44ac-bf0c-b77ad72d84e8/rate_limiter_banner_1786543652313.png", // Move to /public/images/rate-limiter.png for production
     githubUrl: "https://github.com/aradhya204",
   },
   {
@@ -42,7 +42,7 @@ const projectsData: ProjectData[] = [
       "Integrated OCR-based code extraction, eliminating manual code retyping for 100% of image-based code submissions."
     ],
     techStack: ["Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "Scikit-learn", "PostgreSQL", "Prisma", "Docker"],
-    image: "/images/codesentry.png",
+    image: "/@fs/C:/Users/aradh/.gemini/antigravity-ide/brain/e6738687-8dd5-44ac-bf0c-b77ad72d84e8/codesentry_banner_1786543671075.png", // Move to /public/images/codesentry.png for production
     githubUrl: "https://github.com/aradhya204",
   }
 ];
