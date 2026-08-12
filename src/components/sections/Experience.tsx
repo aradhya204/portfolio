@@ -1,107 +1,119 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const experiences = [
   {
+    id: 1,
     role: "Full Stack Developer Intern",
     company: "Design Esthetics",
     period: "Feb 2026 – May 2026",
-    highlights: [
-      "Engineered and shipped 4 production React.js modules (auth, onboarding, instructor allocation, aircraft scheduling) with reusable, responsive components.",
-      "Architected 20+ RESTful endpoints and integrated them into React.js front-ends, securing routes with JWT authentication and RBAC.",
-      "Cut new-developer onboarding time by ~95% by containerizing all Node.js services with Docker.",
-      "Drove Agile delivery via Git/GitHub and Postman.",
-      "Integrated PostgreSQL and MySQL for scalable data management."
+    bullets: [
+      "Shipped 4 production React.js modules (auth, onboarding, instructor allocation, aircraft scheduling) adopted by 100+ internal users",
+      "Built 20+ RESTful endpoints with JWT auth and role-based authorization across 3 roles",
+      "Reduced new-developer onboarding time by ~95% (1 day → under 30 min) via Docker containerization"
     ]
   }
 ];
 
 export const Experience = () => {
-  const shouldReduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const listContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
-    },
-  };
-
-  const listItemVariants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-  };
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="experience" className="py-32 border-t border-white/5 relative">
-      <div className="container mx-auto px-6 md:px-12 lg:px-24">
-        
+    <section id="experience" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10">
+      <div className="max-w-4xl mx-auto" ref={containerRef}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-20"
-        >
-          <h2 className="text-section-title font-black uppercase tracking-tighter leading-none mb-4">
-            Experience<span className="text-primary">.</span>
-          </h2>
-        </motion.div>
-
-        <motion.div 
-          className="max-w-5xl"
-          variants={shouldReduceMotion ? {} : containerVariants}
-          initial="hidden"
-          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          {experiences.map((exp, index) => (
-            <motion.div 
-              key={index}
-              variants={shouldReduceMotion ? {} : itemVariants}
-              className="flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 border-t border-white/10 first:border-t-0 first:pt-0"
-            >
-              <div className="w-full lg:w-1/3 shrink-0">
-                <h3 className="text-2xl font-bold text-white mb-2">{exp.role}</h3>
-                <h4 className="text-lg font-serif italic text-accent mb-4">{exp.company}</h4>
-                <div className="text-sm font-semibold tracking-[0.2em] text-gray-500 uppercase">
-                  {exp.period}
-                </div>
-              </div>
-
-              <div className="w-full lg:w-2/3">
-                <motion.ul 
-                  variants={shouldReduceMotion ? {} : listContainerVariants}
-                  className="space-y-4"
-                >
-                  {exp.highlights.map((item, i) => (
-                    <motion.li 
-                      key={i} 
-                      variants={shouldReduceMotion ? {} : listItemVariants}
-                      className="text-gray-300 text-base leading-relaxed flex items-start"
-                    >
-                      <span className="text-primary mr-3 mt-1.5 opacity-70 text-xs">■</span>
-                      <span>{item}</span>
-                    </motion.li>
-                  ))}
-                </motion.ul>
-              </div>
-            </motion.div>
-          ))}
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Experience</span>
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
         </motion.div>
+
+        <div className="relative">
+          {/* Timeline Background Line */}
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-1 bg-white/10 rounded-full" />
+          
+          {/* Animated Fill Line */}
+          <motion.div 
+            className="absolute left-4 md:left-8 top-0 w-1 bg-gradient-to-b from-primary to-accent rounded-full origin-top"
+            style={{ height: lineHeight }}
+          />
+
+          <div className="flex flex-col gap-12 pt-6">
+            {experiences.map((exp, index) => (
+              <TimelineItem key={exp.id} exp={exp} index={index} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
+  );
+};
+
+const TimelineItem = ({ exp, index }: { exp: any, index: number }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start 80%", "center center"]
+  });
+
+  const dotScale = useTransform(scrollYProgress, [0, 1], [0.5, 1.2]);
+  const dotOpacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+  const dotColor = useTransform(scrollYProgress, [0, 1], ["#111827", "#3B82F6"]);
+
+  return (
+    <div ref={itemRef} className="relative pl-12 md:pl-24">
+      {/* Animated Dot */}
+      <motion.div 
+        className="absolute left-2.5 md:left-[1.65rem] top-1.5 w-4 h-4 -translate-x-1/2 rounded-full border-2 border-primary z-10 bg-cards"
+        style={{ scale: dotScale, opacity: dotOpacity, backgroundColor: dotColor as any }}
+      />
+      
+      {/* Glow Effect behind Dot */}
+      <motion.div 
+        className="absolute left-2.5 md:left-[1.65rem] top-1.5 w-4 h-4 -translate-x-1/2 rounded-full bg-primary blur-md z-0"
+        style={{ opacity: scrollYProgress }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="bg-cards border border-white/5 p-6 md:p-8 rounded-2xl hover:border-white/10 transition-colors shadow-lg"
+      >
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold text-white">{exp.role}</h3>
+            <div className="text-lg text-primary font-medium">{exp.company}</div>
+          </div>
+          <div className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-gray-400 self-start md:self-auto whitespace-nowrap">
+            {exp.period}
+          </div>
+        </div>
+        
+        <ul className="space-y-3 mt-6">
+          {exp.bullets.map((bullet: string, i: number) => (
+            <li key={i} className="text-gray-400 flex items-start group">
+              <span className="text-accent mr-3 mt-1.5 opacity-60 group-hover:opacity-100 transition-opacity">▹</span>
+              <span className="leading-relaxed">{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { ParticlePortrait } from '../ui/ParticlePortrait';
+import { TypeAnimation } from 'react-type-animation';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -36,37 +36,18 @@ export const Hero = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
     },
   };
 
   const wordVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
-    },
-  };
-
-  const fallbackImageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 1, delay: 0.6 } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
   };
 
   const imageVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 },
-    },
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 } },
   };
 
   const { scrollYProgress } = useScroll();
@@ -86,7 +67,7 @@ export const Hero = () => {
           <div className="flex overflow-hidden">
             <motion.h1 
               variants={wordVariants}
-              className="text-[clamp(4rem,10vw,12rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
+              className="text-[clamp(3.5rem,10vw,10rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
             >
               Aradhya
             </motion.h1>
@@ -95,25 +76,51 @@ export const Hero = () => {
           <div className="flex flex-wrap gap-4 md:gap-8 items-baseline overflow-hidden mt-2">
             <motion.span 
               variants={wordVariants}
-              className="text-[clamp(4rem,10vw,12rem)] font-black leading-[0.9] tracking-tighter uppercase text-primary"
+              className="text-[clamp(3.5rem,10vw,10rem)] font-black leading-[0.9] tracking-tighter uppercase text-gradient"
             >
               Raj
             </motion.span>
-            <motion.span 
-              variants={wordVariants}
-              className="font-serif italic font-normal text-[clamp(1.5rem,3vw,3rem)] text-accent lowercase tracking-normal"
-            >
-              full stack developer
-            </motion.span>
           </div>
+
+          <motion.div variants={wordVariants} className="mt-6 md:mt-8 text-2xl md:text-4xl font-mono text-accent h-[40px] md:h-[60px]">
+            <TypeAnimation
+              sequence={[
+                'Full Stack Developer',
+                2000,
+                'Backend Systems Engineer',
+                2000,
+                'ML Enthusiast',
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </motion.div>
 
           <motion.div
             variants={wordVariants}
-            className="mt-12 md:mt-16 max-w-xl"
+            className="mt-6 max-w-2xl"
           >
             <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
-              Building scalable, high-performance web applications with modern frontend technologies and robust backend architectures.
+              Building distributed systems, AI-powered platforms, and scalable full-stack applications.
             </p>
+          </motion.div>
+          
+          <motion.div variants={wordVariants} className="mt-10 flex flex-wrap gap-6 items-center">
+            <a 
+              href="#projects" 
+              className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-secondary transition-all shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]"
+            >
+              View Projects
+            </a>
+            <a 
+              href="/resume.pdf" 
+              target="_blank"
+              className="px-8 py-4 border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all"
+            >
+              Download Resume
+            </a>
           </motion.div>
         </motion.div>
 
@@ -122,12 +129,12 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
           variants={imageVariants}
-          className="relative w-full max-w-sm lg:w-1/3 aspect-square flex-shrink-0 lg:mb-12"
+          className="relative w-full max-w-sm lg:w-1/3 aspect-square flex-shrink-0 lg:mb-12 mx-auto"
           style={{ perspective: 1000, y }}
         >
           {/* Animated Gradient Border */}
           <motion.div 
-            className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-primary via-purple-500 to-accent opacity-75 blur-[2px]"
+            className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-primary via-accent to-purple-600 opacity-75 blur-[8px]"
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
           />
@@ -136,15 +143,13 @@ export const Hero = () => {
           <motion.div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{ 
-              rotateX: shouldReduceMotion ? 0 : rotateX, 
-              rotateY: shouldReduceMotion ? 0 : rotateY 
-            }}
+            style={{ rotateX: shouldReduceMotion ? 0 : rotateX, rotateY: shouldReduceMotion ? 0 : rotateY }}
             whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative w-full h-full rounded-full overflow-hidden bg-gray-900 border-[3px] border-black shadow-2xl z-10"
+            className="relative w-full h-full rounded-full overflow-hidden bg-cards border-2 border-white/10 shadow-2xl z-10 flex items-center justify-center"
           >
-             <img src="/profile.png" alt="Profile" className="w-full h-full object-cover" />
+             {/* Replace this with your actual image later */}
+             <img src="/images/profile.jpg" alt="Aradhya Raj" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/400x400/111827/3B82F6?text=Profile'; }} />
           </motion.div>
         </motion.div>
       </div>
@@ -159,7 +164,7 @@ export const Hero = () => {
         <span className="text-xs font-semibold tracking-[0.2em] text-gray-500 uppercase">Scroll</span>
         <div className="w-12 h-[1px] bg-gray-700 overflow-hidden relative">
           <motion.div
-            className="absolute top-0 left-0 w-full h-full bg-white"
+            className="absolute top-0 left-0 w-full h-full bg-primary"
             initial={{ x: "-100%" }}
             animate={{ x: "100%" }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}

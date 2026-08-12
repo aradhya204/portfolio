@@ -1,102 +1,159 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SkillChip } from '../ui/SkillChip';
+
+const SKILL_CATEGORIES = [
+  {
+    id: 'languages',
+    label: 'Languages',
+    skills: ['JavaScript (ES6+)', 'TypeScript', 'Python', 'SQL'],
+  },
+  {
+    id: 'frontend',
+    label: 'Frontend',
+    skills: ['React.js', 'Next.js', 'HTML5', 'CSS3', 'Tailwind CSS', 'Ant Design'],
+  },
+  {
+    id: 'backend',
+    label: 'Backend',
+    skills: ['Node.js', 'Express.js', 'REST APIs', 'JWT', 'RBAC', 'MVC'],
+  },
+  {
+    id: 'databases',
+    label: 'Databases',
+    skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Prisma ORM'],
+  },
+  {
+    id: 'devops',
+    label: 'DevOps & Tools',
+    skills: ['Git', 'GitHub', 'Docker', 'Kubernetes', 'Jenkins', 'Postman', 'AWS', 'CI/CD'],
+  },
+  {
+    id: 'ml',
+    label: 'Machine Learning',
+    skills: ['Scikit-learn', 'Model Training', 'Feature Engineering', 'OCR Integration'],
+  },
+  {
+    id: 'core',
+    label: 'Core CS',
+    skills: ['DSA', 'OOP', 'DBMS', 'OS', 'Computer Networks', 'Concurrency'],
+  },
+];
 
 export const About = () => {
-  const shouldReduceMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3 },
-    },
-  };
-
-  const colVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-  };
+  const [activeTab, setActiveTab] = useState(SKILL_CATEGORIES[0].id);
 
   return (
-    <section id="about" className="py-32 relative border-t border-white/5">
-      <div className="container mx-auto px-6 md:px-12 lg:px-24">
-        
+    <section id="about" className="py-24 px-6 md:px-12 lg:px-24 bg-background relative z-10">
+      <div className="max-w-[90vw] mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-20"
-        >
-          <h2 className="text-section-title font-black uppercase tracking-tighter leading-none mb-4">
-            About<span className="text-primary">.</span>
-          </h2>
-        </motion.div>
-        
-        <motion.div 
-          className="flex flex-col lg:flex-row gap-16 lg:gap-24"
-          variants={shouldReduceMotion ? {} : containerVariants}
-          initial="hidden"
-          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          {/* Left Column: Resume Card */}
-          <motion.div 
-            variants={shouldReduceMotion ? {} : colVariants}
-            className="w-full lg:w-1/3 flex flex-col gap-8 border-l-2 border-white/10 pl-6 lg:pl-10 py-2"
-          >
-            <div>
-              <h4 className="text-white text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-primary">Key Focus</h4>
-              <ul className="text-gray-300 font-medium space-y-2">
-                <li>System Design</li>
-                <li>Backend Architectures</li>
-                <li>API Development</li>
-                <li>Performance Optimization</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-primary">Education</h4>
-              <p className="text-gray-300 font-medium">Master of Computer Applications</p>
-              <p className="text-gray-500 text-sm mt-1">PES University (2024-2026)</p>
-            </div>
-
-            <div>
-              <h4 className="text-white text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-primary">Location</h4>
-              <p className="text-gray-300 font-medium">Bengaluru, India</p>
-            </div>
-
-            <div className="pt-4 flex items-center gap-6">
-              <a href="https://github.com/aradhya204" target="_blank" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu" rel="noreferrer">
-                <FaGithub size={20} />
-              </a>
-              <a href="https://linkedin.com/in/aradhya-raj-570509312" target="_blank" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu" rel="noreferrer">
-                <FaLinkedin size={20} />
-              </a>
-              <a href="mailto:aradhyaraj7422@gmail.com" className="text-gray-500 hover:text-white transition-colors hover:scale-110 transform-gpu">
-                <FaEnvelope size={20} />
-              </a>
-            </div>
-          </motion.div>
-          
-          {/* Right Column: Bio */}
-          <motion.div 
-            variants={shouldReduceMotion ? {} : colVariants}
-            className="w-full lg:w-2/3"
-          >
-            <div className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-gray-300">
-              <p className="mb-8">
-                I am a passionate <span className="text-white font-sans font-bold">Full Stack Engineer</span> with hands-on experience building scalable backend systems, secure APIs, distributed architectures, and responsive frontend applications.
-              </p>
-              <p className="mb-8">
-                My expertise lies in designing robust solutions using modern technologies like React, Node.js, and PostgreSQL. I have a strong foundation in <span className="text-white font-sans font-bold">system design, performance optimization, and clean architecture</span>, ensuring the applications I build are not just functional, but maintainable and scalable.
-              </p>
-              <p className="text-xl md:text-2xl text-gray-400">
-                I'm constantly exploring new tools and paradigms. Whether it's implementing a distributed rate-limiter with Redis, architecting a multi-tenant platform, or training an ML model for code review, I love tackling complex technical challenges and delivering production-ready code.
-              </p>
-            </div>
-          </motion.div>
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Me</span>
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-primary to-accent rounded-full" />
         </motion.div>
+
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
+          {/* Left Column: Photo/Illustration */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full lg:w-2/5 relative"
+          >
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500" />
+              {/* Replace with your actual illustration or secondary photo */}
+              <img 
+                src="/images/about-illustration.jpg" 
+                alt="Aradhya Raj working" 
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/600x800/111827/8B5CF6?text=About+Illustration'; }}
+              />
+            </div>
+            {/* Decorative elements */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10" />
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl -z-10" />
+          </motion.div>
+
+          {/* Right Column: Bio and Skills */}
+          <div className="w-full lg:w-3/5 flex flex-col gap-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <p className="text-gray-300 text-lg leading-relaxed mb-6 font-medium">
+                Full Stack Developer with hands-on experience building production-grade distributed backend systems and full-stack web applications.
+              </p>
+              <p className="text-gray-400 text-base leading-relaxed mb-6">
+                My work includes engineering a Redis-backed distributed rate-limiting API gateway, an AI-powered code review platform combining a self-trained ML classifier with a full-stack TypeScript app, and secure multi-tenant fintech REST APIs with role-based access control.
+              </p>
+              <p className="text-gray-400 text-base leading-relaxed">
+                I have a strong foundation in <span className="text-white font-semibold">Data Structures & Algorithms, Object-Oriented Programming, and Concurrency</span> across the full Software Development Life Cycle.
+              </p>
+            </motion.div>
+
+            {/* Interactive Skills Tabs */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-4"
+            >
+              <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-wide">Technical Arsenal</h3>
+              
+              <div className="flex flex-wrap gap-2 mb-8">
+                {SKILL_CATEGORIES.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => setActiveTab(category.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      activeTab === category.id 
+                        ? 'bg-primary text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' 
+                        : 'bg-cards text-gray-400 hover:text-white hover:bg-white/5 border border-white/5'
+                    }`}
+                  >
+                    {category.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="min-h-[120px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-wrap gap-3"
+                  >
+                    {SKILL_CATEGORIES.find(c => c.id === activeTab)?.skills.map((skill, index) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                      >
+                        <SkillChip name={skill} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
