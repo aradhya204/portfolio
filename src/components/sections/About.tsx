@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import { KineticHeading } from '../ui/KineticHeading';
+
+// ... (keep categories same, but let's replace the whole file for safety)
+// Let's rewrite About.tsx completely using write_to_file since I need to add import and change heading.
 import { motion, AnimatePresence } from 'framer-motion';
 import { SkillChip } from '../ui/SkillChip';
 
