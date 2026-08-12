@@ -75,7 +75,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10 overflow-hidden">
+    <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 bg-transparent relative z-10">
       {/* Decorative blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] -z-10" />
